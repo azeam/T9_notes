@@ -5,6 +5,5 @@ Final project in the class JavaScript EVXJUH20 (Javautvecklare, EC Utbildning VÃ
 ## Set up dev env
 
 `npm install`  
-Add .env to root  
 
 For Firebase run `npm install && npm start` from functions folder
