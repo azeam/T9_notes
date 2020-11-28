@@ -76,7 +76,7 @@ exports.saveNewNote = (request, response) => {
         })
         .catch((err) => {
             console.error(err);
-			response.status(500).json({ error: "Something went wrong" });
+			response.status(500).json({ error: err.code });
 		});
 };
 
@@ -89,7 +89,7 @@ exports.deleteNote = (request, response) => {
             if (!doc.exists) {
                 return response.status(404).json({ error: "Note not found" });
 			}
-			if(doc.data().username !== request.user.username) {
+			if (doc.data().username !== request.user.username) {
 				return response.status(403).json({error:"Unauthorized"});
             }
             if (document.delete()) {
@@ -98,7 +98,7 @@ exports.deleteNote = (request, response) => {
         })
         .catch((err) => {
             console.error(err);
-            response.status(500).json({ error: err });
+            response.status(500).json({ error: err.code });
         });
 };
 
@@ -125,6 +125,6 @@ exports.editNote = (request, response) => {
         })
         .catch((err) => {
             console.error(err);
-            response.status(500).json({ error: err });
+            response.status(500).json({ error: err.code });
         });
 };
