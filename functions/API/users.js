@@ -7,7 +7,7 @@ firebase.initializeApp(config);
 
 const { validateLoginData, validateSignUpData } = require("../admin/validators");
 
-// Login
+// login
 exports.loginUser = (request, response) => {
     const user = {
         email: request.body.email,
@@ -50,11 +50,13 @@ exports.signUpUser = (request, response) => {
     }
 
     let token, userId;
+    let keepOn = true; 
     db
         .doc(`/users/${newUser.username}`)
         .get()
         .then((doc) => {
             if (doc.exists) {
+                keepOn = false; // stop the thens on error to prevent Unhandled Promise, probably not the "correct" way to handle this...
                 return response.status(400).json({ username: "This username is already taken" });
             } else {
                 return firebase
@@ -66,23 +68,29 @@ exports.signUpUser = (request, response) => {
             }
         })
         .then((data) => {
-            userId = data.user.uid;
-            return data.user.getIdToken();
+            if (keepOn) {
+                userId = data.user.uid;
+                return data.user.getIdToken();
+            }
         })
         .then((idtoken) => {
-            token = idtoken;
-            const userCredentials = {
-                username: newUser.username,
-                email: newUser.email,
-                createdAt: new Date().toISOString(),
-                userId
-            };
-            return db
-                    .doc(`/users/${newUser.username}`)
-                    .set(userCredentials);
+            if (keepOn) {
+                token = idtoken;
+                const userCredentials = {
+                    username: newUser.username,
+                    email: newUser.email,
+                    createdAt: new Date().toISOString(),
+                    userId
+                };
+                return db
+                        .doc(`/users/${newUser.username}`)
+                        .set(userCredentials);
+            }
         })
         .then(() => {
-            return response.status(201).json({ token });
+            if (keepOn) {
+                return response.status(201).json({ token });
+            }
         })
         .catch((err) => {
 			console.error(err);
