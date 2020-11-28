@@ -1,0 +1,29 @@
+{
+  "name": "t9notes",
+  "version": "0.0.1",
+  "description": "Final project in the class JavaScript EVXJUH20 (Javautvecklare, EC Utbildning Växjö 2020)",
+  "main": "index.js",
+  "dependencies": {
+    
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azeam/T9_notes.git"
+  },
+  "keywords": [
+    "Notes",
+    "ToDo",
+    "Sync",
+    "Encryption"
+  ],
+  "author": "Team 9",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azeam/T9_notes/issues"
+  },
+  "homepage": "https://github.com/azeam/T9_notes#readme"
+}
