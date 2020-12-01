@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "description": "Final project in the class JavaScript EVXJUH20 (Javautvecklare, EC Utbildning Växjö 2020)",
   "main": "index.js",
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,5 +1,6 @@
 const { db } = require("../admin/admin");
 
+// get all notes by user
 exports.getAllNotes = (request, response) => {
 	db
 		.collection("notes")
@@ -24,6 +25,7 @@ exports.getAllNotes = (request, response) => {
 		});
 };
 
+// get a note
 exports.getSingleNote = (request, response) => {
 	db
         .doc(`/notes/${request.params.noteId}`)
@@ -35,8 +37,8 @@ exports.getSingleNote = (request, response) => {
                         error: 'Note not found' 
                     });
             }
-            if(doc.data().username !== request.user.username){
-                return response.status(403).json({error:"UnAuthorized"})
+            if (doc.data().username !== request.user.username) {
+                return response.status(403).json({error:"Unauthorized"})
             }
 			NoteData = doc.data();
 			NoteData.noteId = doc.id;
@@ -48,6 +50,7 @@ exports.getSingleNote = (request, response) => {
 		});
 };
 
+// save note
 exports.saveNewNote = (request, response) => {
 	if (request.body.body.trim() === "") {
 		return response.status(400).json({ body: "Must not be empty" });
@@ -66,54 +69,62 @@ exports.saveNewNote = (request, response) => {
     db
         .collection("notes")
         .add(newNote)
-        .then((doc)=>{
+        .then((doc) => {
             const responseNote = newNote;
             responseNote.id = doc.id;
             return response.json(responseNote);
         })
         .catch((err) => {
-			response.status(500).json({ error: "Something went wrong" });
-			console.error(err);
+            console.error(err);
+			response.status(500).json({ error: err.code });
 		});
 };
 
+// delete note
 exports.deleteNote = (request, response) => {
     const document = db.doc(`/notes/${request.params.noteId}`);
     document
         .get()
         .then((doc) => {
             if (!doc.exists) {
-                return response.status(404).json({ error: "Note not found" })
+                return response.status(404).json({ error: "Note not found" });
 			}
-			if(doc.data().username !== request.user.username){
-				return response.status(403).json({error:"UnAuthorized"})
-		   	}
-            return document.delete();
-        })
-        .then(() => {
-            response.json({ message: "Successfully deleted" });
+			if (doc.data().username !== request.user.username) {
+				return response.status(403).json({error:"Unauthorized"});
+            }
+            if (document.delete()) {
+                response.json({ message: "Successfully deleted" });
+            }
         })
         .catch((err) => {
             console.error(err);
-            return response.status(500).json({ error: err.code });
+            response.status(500).json({ error: err.code });
         });
 };
 
+// edit note
 exports.editNote = (request, response) => { 
-    if (request.body.noteId || request.body.createdAt){
-        response.status(403).json({message: "Not allowed to edit"});
-	}
-	
+    // disallow edit of id and date
+    if (request.body.noteId || request.body.createdAt) {
+        return response.status(403).json({message: "Not allowed to edit"});
+    }
+    // update note with id noteId
     let document = db.collection("notes").doc(`${request.params.noteId}`);
-    document.update(request.body)
-    .then(()=> {
-        response.json({ message: "Successfully updated"});
-    })
-    .catch((err) => {
-        console.error(err);
-        return response.status(500).json({ 
-                error: err.code 
+    document
+        .get()
+        .then((doc) => {
+            if (!doc.exists) {
+                return response.status(404).json({ error: "Note not found" });
+			}
+            if (doc.data().username !== request.user.username) { // only allow editing of users own notes
+                return response.status(403).json({ error:"Unauthorized"});
+            }
+            if (document.update(request.body)) {
+                response.json({ message: "Successfully updated" });
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            response.status(500).json({ error: err.code });
         });
-    });
 };
-
