@@ -4,7 +4,7 @@ const { db } = require("../admin/admin");
 exports.getAllNotes = (request, response) => {
 	db
 		.collection("notes")
-		.where('username', '==', request.user.username)
+        .where("username", "==", request.user.username)
 		.orderBy("createdAt", "desc")
 		.get()
 		.then((data) => {
@@ -13,15 +13,15 @@ exports.getAllNotes = (request, response) => {
 				notes.push({
                     noteId: doc.id,
                     title: doc.data().title,
-					body: doc.data().body,
+                    body: doc.data().body,
+                    category: doc.data().category,
 					createdAt: doc.data().createdAt,
 				});
 			});
 			return response.json(notes);
 		})
 		.catch((err) => {
-			console.error(err);
-			return response.status(500).json({ error: err.code});
+			return response.status(500).json({ error: err.message });
 		});
 };
 
@@ -38,15 +38,14 @@ exports.getSingleNote = (request, response) => {
                     });
             }
             if (doc.data().username !== request.user.username) {
-                return response.status(403).json({error:"Unauthorized"})
+                return response.status(403).json({ error: "Unauthorized" })
             }
 			NoteData = doc.data();
 			NoteData.noteId = doc.id;
 			return response.json(NoteData);
 		})
 		.catch((err) => {
-			console.error(err);
-			return response.status(500).json({ error: error.code });
+			return response.status(500).json({ error: error.message });
 		});
 };
 
@@ -62,7 +61,8 @@ exports.saveNewNote = (request, response) => {
     
     const newNote = {
         title: request.body.title,
-		body: request.body.body,
+        body: request.body.body,
+        category: request.body.category,
 		username: request.user.username,
         createdAt: new Date().toISOString()
     }
@@ -75,8 +75,7 @@ exports.saveNewNote = (request, response) => {
             return response.json(responseNote);
         })
         .catch((err) => {
-            console.error(err);
-			response.status(500).json({ error: err.code });
+			response.status(500).json({ error: err.message });
 		});
 };
 
@@ -90,15 +89,14 @@ exports.deleteNote = (request, response) => {
                 return response.status(404).json({ error: "Note not found" });
 			}
 			if (doc.data().username !== request.user.username) {
-				return response.status(403).json({error:"Unauthorized"});
+				return response.status(403).json({ error: "Unauthorized" });
             }
             if (document.delete()) {
                 response.json({ message: "Successfully deleted" });
             }
         })
         .catch((err) => {
-            console.error(err);
-            response.status(500).json({ error: err.code });
+            response.status(500).json({ error: err.message });
         });
 };
 
@@ -106,7 +104,7 @@ exports.deleteNote = (request, response) => {
 exports.editNote = (request, response) => { 
     // disallow edit of id and date
     if (request.body.noteId || request.body.createdAt) {
-        return response.status(403).json({message: "Not allowed to edit"});
+        return response.status(403).json({ message: "Not allowed to edit" });
     }
     // update note with id noteId
     let document = db.collection("notes").doc(`${request.params.noteId}`);
@@ -117,14 +115,13 @@ exports.editNote = (request, response) => {
                 return response.status(404).json({ error: "Note not found" });
 			}
             if (doc.data().username !== request.user.username) { // only allow editing of users own notes
-                return response.status(403).json({ error:"Unauthorized"});
+                return response.status(403).json({ error: "Unauthorized" });
             }
             if (document.update(request.body)) {
                 response.json({ message: "Successfully updated" });
             }
         })
         .catch((err) => {
-            console.error(err);
-            response.status(500).json({ error: err.code });
+            response.status(500).json({ error: err.message });
         });
 };
