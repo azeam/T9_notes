@@ -25,10 +25,15 @@ class NoteForm extends Component {
 			title: this.state.title,
 			note: this.state.note
 		};
+
+		const authToken = localStorage.getItem('AuthToken');
+		console.log(authToken);
+		axios.defaults.headers.common = { Authorization: `${authToken}` };
+
 		axios
 			.post('/notes', newNoteData)
 			.then((response) => {
-				console.log("A");
+				console.log();
 			})
 			.catch((error) => {
 				if (error.response) {
