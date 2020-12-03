@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Button from '../components/Button';
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -27,7 +28,7 @@ class NoteForm extends Component {
 		axios
 			.post('/notes', newNoteData)
 			.then((response) => {
-				
+				console.log("A");
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -51,7 +52,8 @@ class NoteForm extends Component {
 						<br/>
 						<label>Note</label>
 						<input type="text" id="note" name="note" onChange={this.handleChange} required />
-						<input type="submit" onClick={this.handleSubmit}/>
+						{/* <input type="submit" onClick={this.handleSubmit}/> */}
+						<Button onClick={this.handleSubmit}></Button>
 					</form>
 				</div>
 		);
