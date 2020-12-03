@@ -34,7 +34,7 @@ class signup extends Component {
 			.then((response) => {
 				console.log("token: ", `${response.data.token}`); // print token to console for debug
 				localStorage.setItem('AuthToken', `${response.data.token}`); // save token in local storage
-				this.props.history.push('/'); // go home
+				this.props.history.push('/newnote'); // go home
 			})
 			.catch((error) => {
 				if (error.response) {
