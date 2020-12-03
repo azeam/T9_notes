@@ -1,11 +1,9 @@
 const { admin, db } = require("../admin/admin");
 const config = require("../admin/config");
-
 const firebase = require("firebase");
+const { validateLoginData, validateSignUpData } = require("../admin/validators");
 
 firebase.initializeApp(config);
-
-const { validateLoginData, validateSignUpData } = require("../admin/validators");
 
 // login
 exports.loginUser = (request, response) => {
@@ -28,9 +26,8 @@ exports.loginUser = (request, response) => {
         .then((token) => {
             return response.json({ token });
         })
-        .catch((error) => {
-            console.error(error);
-            return response.status(403).json({ general: "Wrong credentials, please try again"});
+        .catch((err) => {
+            return response.status(403).json({ error: err.message });		
         })
 };
 
@@ -93,11 +90,6 @@ exports.signUpUser = (request, response) => {
             }
         })
         .catch((err) => {
-			console.error(err);
-			if (err.code === "auth/email-already-in-use") {
-				return response.status(400).json({ email: "Email already in use" });
-			} else {
-				return response.status(500).json({ general: "Something went wrong, please try again" });
-			}
+            return response.status(500).json({ error: err.message });		
 		});
 }
