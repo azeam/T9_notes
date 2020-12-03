@@ -38,7 +38,7 @@ exports.getSingleNote = (request, response) => {
                     });
             }
             if (doc.data().username !== request.user.username) {
-                return response.status(403).json({ error: "Unauthorized" })
+                return response.status(403).json({ error: "Unauthorized to read this note" })
             }
 			NoteData = doc.data();
 			NoteData.noteId = doc.id;
@@ -89,7 +89,7 @@ exports.deleteNote = (request, response) => {
                 return response.status(404).json({ error: "Note not found" });
 			}
 			if (doc.data().username !== request.user.username) {
-				return response.status(403).json({ error: "Unauthorized" });
+				return response.status(403).json({ error: "Unauthorized to delete this note" });
             }
             if (document.delete()) {
                 response.json({ message: "Successfully deleted" });
@@ -115,7 +115,7 @@ exports.editNote = (request, response) => {
                 return response.status(404).json({ error: "Note not found" });
 			}
             if (doc.data().username !== request.user.username) { // only allow editing of users own notes
-                return response.status(403).json({ error: "Unauthorized" });
+                return response.status(403).json({ error: "Unauthorized to edit this note" });
             }
             if (document.update(request.body)) {
                 response.json({ message: "Successfully updated" });
