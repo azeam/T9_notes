@@ -8,7 +8,7 @@ class NoteForm extends Component {
 
 		this.state = {
 			title: '',
-			note: ''
+			body: ''
 		};
     }
 
@@ -23,7 +23,7 @@ class NoteForm extends Component {
 		event.preventDefault(); // handle form with js
 		const newNoteData = {
 			title: this.state.title,
-			note: this.state.note
+			body: this.state.body
 		};
 
 		const authToken = localStorage.getItem('AuthToken');
@@ -56,9 +56,9 @@ class NoteForm extends Component {
 						<input type="text" id="title" name="title" onChange={this.handleChange} required />
 						<br/>
 						<label>Note</label>
-						<input type="text" id="note" name="note" onChange={this.handleChange} required />
+						<input type="text" id="note" name="body" onChange={this.handleChange} required />
 						{/* <input type="submit" onClick={this.handleSubmit}/> */}
-						<Button onClick={this.handleSubmit}></Button>
+						<Button type="submit" onClick={this.handleSubmit}></Button>
 					</form>
 				</div>
 		);
