@@ -8,7 +8,8 @@ class NoteForm extends Component {
 
 		this.state = {
 			title: '',
-			body: ''
+			body: '',
+			category: 'test'
 		};
     }
 
@@ -23,7 +24,8 @@ class NoteForm extends Component {
 		event.preventDefault(); // handle form with js
 		const newNoteData = {
 			title: this.state.title,
-			body: this.state.body
+			body: this.state.body,
+			category: ""
 		};
 
 		const authToken = localStorage.getItem('AuthToken');
