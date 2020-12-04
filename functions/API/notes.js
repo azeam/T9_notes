@@ -87,9 +87,9 @@ exports.deleteNote = (request, response) => {
         .then((doc) => {
             if (!doc.exists) {
                 return response.status(404).json({ error: "Note not found" });
-			}
-			if (doc.data().username !== request.user.username) {
-				return response.status(403).json({ error: "Unauthorized to read this note" });
+            }
+            if (doc.data().username !== request.user.username) {
+              return response.status(403).json({ error: "Unauthorized to delete this note" });
             }
             if (document.delete()) {
                 response.json({ message: "Successfully deleted" });
@@ -113,9 +113,9 @@ exports.editNote = (request, response) => {
         .then((doc) => {
             if (!doc.exists) {
                 return response.status(404).json({ error: "Note not found" });
-			}
+			      }
             if (doc.data().username !== request.user.username) { // only allow editing of users own notes
-                return response.status(403).json({ error: "Unauthorized to read this note" });
+                return response.status(403).json({ error: "Unauthorized to edit this note" });
             }
             if (document.update(request.body)) {
                 response.json({ message: "Successfully updated" });
