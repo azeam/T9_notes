@@ -32,8 +32,9 @@ class signup extends Component {
 		axios
 			.post('/signup', newUserData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
-				localStorage.setItem('AuthToken', `Bearer ${response.data.token}`); // save token in local storage
-				this.props.history.push('/newnote'); // go home
+				console.log("token: ", `${response.data.token}`); // print token to console for debug
+				localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
+				this.props.history.push('/'); // go home
 			})
 			.catch((error) => {
 				if (error.response) {
