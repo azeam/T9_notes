@@ -1,3 +1,30 @@
 :root {
     --primary: #4628ff;
+    --delete: #eb3f27;
+    --dark: #181717;
+    --white: #FFF;
 }
+
+.btn {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: rgba(238, 238, 238, 0.479);
+    color: var(--dark);
+    border: 2px solid var(--primary);
+}
+
+.btn:hover{
+    transform: translateY(2px);
+}
+
+/* Button Colors and Styles */
+
+/* .btn{
+    background-color: transparent;
+    color: var(--white);
+    border: 2px solid var(--primary);
+} */
