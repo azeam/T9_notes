@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Button from '../components/Button';
+import SubmitButton from '../components/Button';
+import NoteBody from '../components/TextArea';
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -9,7 +10,7 @@ class NoteForm extends Component {
 		this.state = {
 			title: '',
 			body: '',
-			category: 'test'
+			category: ''
 		};
     }
 
@@ -18,15 +19,28 @@ class NoteForm extends Component {
 		this.setState({
 			[event.target.name]: event.target.value
 		});
-    };
-
-    handleSubmit = (event) => {
+	};
+	
+	handleSubmit = (event) => {
 		event.preventDefault(); // handle form with js
+        if(this.state.body.length > 0)
+        {
+			var bodyTitle = this.state.body.split('\n', 1)[0];
+			// var bodyBody = this.state.body.substring(bodyTitle.length, this.state.body.length); // Erase the title and continue
+        }
 		const newNoteData = {
-			title: this.state.title,
+			title: bodyTitle,
 			body: this.state.body,
-			category: ""
+			category: this.state.category
 		};
+
+    // handleSubmit = (event) => {
+	// 	event.preventDefault(); // handle form with js
+	// 	const newNoteData = {
+	// 		title: this.state.title,
+	// 		body: this.state.body,
+	// 		category: this.state.category
+	// 	};
 
 		const authToken = localStorage.getItem('AuthToken');
 		console.log(authToken);
@@ -35,7 +49,7 @@ class NoteForm extends Component {
 		axios
 			.post('/notes', newNoteData)
 			.then((response) => {
-				console.log();
+				this.props.history.push('/newnote'); // go home
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -49,20 +63,11 @@ class NoteForm extends Component {
     
     render() {
 		return (
-				<div className="noteForm">
-					<h1>
-						Add new note
-					</h1>
-					<form className="noteForm" noValidate>
-						<label>Title</label>
-						<input type="text" id="title" name="title" onChange={this.handleChange} required />
-						<br/>
-						<label>Note</label>
-						<input type="text" id="note" name="body" onChange={this.handleChange} required />
-						{/* <input type="submit" onClick={this.handleSubmit}/> */}
-						<Button type="submit" onClick={this.handleSubmit}></Button>
-					</form>
-				</div>
+			<div className="noteForm">
+				<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
+				<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+				<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			</div>
 		);
 	}
 }

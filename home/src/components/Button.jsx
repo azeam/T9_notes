@@ -1,10 +1,11 @@
-import react, { Component } from 'react';
+import React, { Component } from 'react';
+import './Button.css';
 
 class Button extends Component {
     render(){
         return(
             <div>
-                <button onClick={this.props.onClick}>SAVE</button>
+                <button className={this.props.className} onClick={this.props.onClick}>{this.props.label}</button>
             </div>
         );
     }
