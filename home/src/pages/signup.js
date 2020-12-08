@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import SubmitButton from '../components/Button';
+import SignupInput from '../components/Input';
 
 class signup extends Component {
 	constructor(props) {
@@ -33,8 +35,8 @@ class signup extends Component {
 			.post('/signup', newUserData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
 				console.log("token: ", `${response.data.token}`); // print token to console for debug
-				localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-				this.props.history.push('/'); // go home
+	//			localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
+				this.props.history.push('/login'); // go to login page
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -48,26 +50,15 @@ class signup extends Component {
 
 	render() {
 		return (
-				<div className="signup">
-					<h1>
-						Sign up
-					</h1>
-					<form className="signup" noValidate>
-						<label>name</label>
-						<input type="text" id="username" name="username" onChange={this.handleChange} required />
-						<br/>
-						<label>email</label>
-						<input type="text" id="email" name="email" onChange={this.handleChange} required />
-						<br/>
-						<label>password</label>
-						<input type="text" id="password" name="password" onChange={this.handleChange} required />
-						<br/>
-						<label>confirm password</label>
-						<input type="text" id="confirmPassword" name="confirmPassword" onChange={this.handleChange} required />
-						<br/>
-						<input type="submit" onClick={this.handleSubmit}/>
-					</form>
-				</div>
+			<form className="signup">
+				<h1>Sign up</h1>
+				<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange}></SignupInput>
+				<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></SignupInput>
+				<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>
+				<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange}></SignupInput>
+
+				<SubmitButton className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			</form>
 		);
 	}
 }
