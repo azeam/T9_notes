@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
-
+import SubmitButton from '../components/Button';
+import LoginInput from '../components/Input';
 
 class login extends Component {
 	constructor(props) {
@@ -21,7 +21,7 @@ class login extends Component {
 	};
 
 	// send request to api
-	handleLogin = (event) => {
+	handleSubmit = (event) => {
 		event.preventDefault(); // handle form with js
 		const newLoginData = {
 			email: this.state.email,
@@ -31,8 +31,8 @@ class login extends Component {
 			.post('/login', newLoginData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
 				console.log("token: ", `${response.data.token}`); // print token to console for debug
-				localStorage.setItem('AuthToken', `${response.data.token}`); // save token in local storage
-				this.props.history.push('/'); // go home
+				localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
+				this.props.history.push('/newnote'); // go home
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -44,31 +44,15 @@ class login extends Component {
 			});
 	};
 
-    /*handleSignOut = (event) => {
-        firebase.auth().signOut().then(function() {
-            // Sign-out successful.
-          }).catch(function(error) {
-              console.log('Error', error.message);
-            // An error happened.
-          });          
-    }*/
-
 	render() {
 		return (
-				<div className="login">
-					<h1>
-						Log in
-					</h1>
-					<form className="login" noValidate>
-						<label>email</label>
-						<input type="text" id="email" name="email" onChange={this.handleChange} required />
-						<br/>
-						<label>password</label>
-						<input type="text" id="password" name="password" onChange={this.handleChange} required />
-						<br/>
-						<input type="submit" onClick={this.handleSubmit}/>
-					</form>
-				</div>
+			<form className="login">
+				<h1>Login</h1>
+				<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
+				<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
+				
+				<SubmitButton className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			</form>
 		);
 	}
 }
