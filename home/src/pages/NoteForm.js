@@ -43,7 +43,6 @@ class NoteForm extends Component {
 	// 	};
 
 		const authToken = localStorage.getItem('AuthToken');
-		console.log(authToken);
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 
 		axios
@@ -60,13 +59,43 @@ class NoteForm extends Component {
 				}
 			});
 	};
-    
+	
+	getOldNotes = (event) => {
+		const authToken = localStorage.getItem('AuthToken');
+		console.log(authToken);
+		axios.defaults.headers.common = { Authorization: `${authToken}` };
+		axios
+			.get('/notes')
+			.then((response) => {
+				response.data.forEach((note) => {
+					console.log(note.noteId);
+					console.log(note.body);
+				})
+				return response; // go home
+			})
+			.catch((error) => {
+				if (error.response) {
+					console.log(error.response.data); // print api response
+				} 
+				else {
+					console.log('Error', error.message);
+				}
+				// delete token, send to login page on error
+				// this.props.history.push('/login'); // go home
+			});
+	};
+
     render() {
 		return (
-			<div className="noteForm">
-				<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
-				<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
-				<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			<div className="container">
+				<div className="oldNotes">
+					<div>{this.getOldNotes()}</div>
+				</div>
+				<div className="noteForm">
+					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
+					<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+				</div>
 			</div>
 		);
 	}
