@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Button from '../components/Button';
-import Note from '../components/noteForm';
+import SubmitButton from '../components/Button';
+import NoteBody from '../components/TextArea';
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -22,11 +22,11 @@ class NoteForm extends Component {
 	};
 	
 	handleSubmit = (event) => {
-        event.preventDefault(); // handle form with js
+		event.preventDefault(); // handle form with js
         if(this.state.body.length > 0)
         {
 			var bodyTitle = this.state.body.split('\n', 1)[0];
-			var bodyBody = this.state.body.substring(bodyTitle.length, this.state.body.length); // Erase the title and continue
+			// var bodyBody = this.state.body.substring(bodyTitle.length, this.state.body.length); // Erase the title and continue
         }
 		const newNoteData = {
 			title: bodyTitle,
@@ -63,20 +63,11 @@ class NoteForm extends Component {
     
     render() {
 		return (
-				<div className="noteForm">
-					<Note className="noteForm" onChange={this.handleChange}></Note>
-					{/* <form className="noteForm" noValidate>
-						<label>Title</label><br/>
-						<input type="text" id="title" name="title" onChange={this.handleChange} required />
-						<br/>
-						<label>Note</label><br/>
-						<input type="text" id="note" name="body" onChange={this.handleChange} required /><br/>
-						<label>Category</label><br/>
-						<input type="text" id="category" name="category" onChange={this.handleChange} required /><br/>
-						<input type="submit" onClick={this.handleSubmit}/>
-					</form>  */}
-						<Button label="SAVE" type="submit" onClick={this.handleSubmit}></Button>
-				</div>
+			<div className="noteForm">
+				<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
+				<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+				<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			</div>
 		);
 	}
 }

@@ -20,11 +20,3 @@
 .btn:hover{
     transform: translateY(2px);
 }
-
-/* Button Colors and Styles */
-
-/* .btn{
-    background-color: transparent;
-    color: var(--white);
-    border: 2px solid var(--primary);
-} */
