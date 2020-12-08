@@ -3,16 +3,24 @@ import axios from 'axios';
 import SubmitButton from '../components/Button';
 import NoteBody from '../components/TextArea';
 
+function groupBy(data, key) {
+	return data.reduce((acc, x) => {
+	  acc[x[key]] = [...(acc[x[key]] || []), x];
+	  return acc;
+	}, {});
+}
+
 class NoteForm extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			notes: [],
 			title: '',
 			body: '',
 			category: ''
 		};
-    }
+	}
 
 	// update form field data
 	handleChange = (event) => {
@@ -48,7 +56,8 @@ class NoteForm extends Component {
 		axios
 			.post('/notes', newNoteData)
 			.then((response) => {
-				this.props.history.push('/newnote'); // go home
+				this.getAllNotes(); // refresh category list
+				console.log("note saved");
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -59,19 +68,17 @@ class NoteForm extends Component {
 				}
 			});
 	};
-	
-	getOldNotes = (event) => {
+
+	getAllNotes = () => {
 		const authToken = localStorage.getItem('AuthToken');
 		console.log(authToken);
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
 			.get('/notes')
 			.then((response) => {
-				response.data.forEach((note) => {
-					console.log(note.noteId);
-					console.log(note.body);
-				})
-				return response; // go home
+				this.setState({
+					notes: response.data
+				});
 			})
 			.catch((error) => {
 				if (error.response) {
@@ -80,20 +87,42 @@ class NoteForm extends Component {
 				else {
 					console.log('Error', error.message);
 				}
-				// delete token, send to login page on error
+				// TODO: delete token, send to login page on error
 				// this.props.history.push('/login'); // go home
 			});
+	}
+	
+	// will only render once
+	componentDidMount = () => {
+		this.getAllNotes();
 	};
 
     render() {
+		const categories = groupBy(this.state.notes, "category");
 		return (
-			<div className="container">
-				<div className="oldNotes">
-					<div>{this.getOldNotes()}</div>
-				</div>
+			<div className="container">	
+				{
+					Object.entries(categories).map((cat) => {
+						return (
+							<div>
+							  <h3 key={cat[0]}>{cat[0]}</h3>
+							  {
+								cat[1].map((data) => {
+									return (
+										<li key={data.noteId} id={data.noteId}>
+											{data.body}
+										</li>
+									)
+								})
+							  }
+							</div>
+						  )
+					})
+				}
+				
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
-					<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
 					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
 				</div>
 			</div>
