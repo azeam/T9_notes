@@ -135,10 +135,10 @@ class NoteForm extends Component {
 		return (
 			<div className="container">	
 				{
-					Object.entries(categories).map((cat) => {
+					Object.entries(categories).map((cat, i) => {
 						return (
-							<ul key={cat[0]}>
-							  <h3 key={cat[0]}>{cat[0]}</h3>
+							<ul key={i}>
+							  <li key={cat[0]}><h3>{cat[0]}</h3></li>
 							  {
 								cat[1].map((data) => {
 									return (
