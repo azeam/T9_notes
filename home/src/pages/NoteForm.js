@@ -1,7 +1,25 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import SubmitButton from '../components/Button';
-import NoteBody from '../components/TextArea';
+import React, { Component } from "react";
+import axios from "axios";
+import SubmitButton from "../components/Button";
+import NoteBody from "../components/TextArea";
+import history from "../utils/history";
+
+const tokenCheck = () => {
+    const authToken = localStorage.getItem("AuthToken");
+    if (authToken === null) {
+		history.push("/login"); // go to login page
+		return false;
+	}
+	return true;
+}
+
+const logout = () => {
+	const authToken = localStorage.getItem("AuthToken");
+	if (authToken !== null) {
+		localStorage.removeItem("AuthToken");
+	}
+	history.push("/login");
+}
 
 function groupBy(data, key) {
 	return data.reduce((acc, x) => {
@@ -16,9 +34,9 @@ class NoteForm extends Component {
 
 		this.state = {
 			notes: [],
-			title: '',
-			body: '',
-			category: ''
+			title: "",
+			body: "",
+			category: ""
 		};
 	}
 
@@ -31,9 +49,11 @@ class NoteForm extends Component {
 	
 	handleSubmit = (event) => {
 		event.preventDefault(); // handle form with js
-        if(this.state.body.length > 0)
-        {
-			var bodyTitle = this.state.body.split('\n', 1)[0];
+		if (!tokenCheck(history)) { // check if token exists
+			return;
+		}
+        if (this.state.body.length > 0) {
+			var bodyTitle = this.state.body.split("\n", 1)[0];
 			// var bodyBody = this.state.body.substring(bodyTitle.length, this.state.body.length); // Erase the title and continue
         }
 		const newNoteData = {
@@ -49,32 +69,42 @@ class NoteForm extends Component {
 	// 		body: this.state.body,
 	// 		category: this.state.category
 	// 	};
-
-		const authToken = localStorage.getItem('AuthToken');
+		
+		const authToken = localStorage.getItem("AuthToken");
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 
 		axios
-			.post('/notes', newNoteData)
+			.post("/notes", newNoteData)
 			.then((response) => {
 				this.getAllNotes(); // refresh category list
 				console.log("note saved");
 			})
 			.catch((error) => {
 				if (error.response) {
+					if (error.response.status === 403) {
+						/* 
+							TODO: no access, probably because token has expired, now it will delete the local token 
+							and send the user to the login page. This is likely not a user friendly solution, should be handled 
+							in a better way
+						*/ 
+						logout();
+					}
 					console.log(error.response.data); // print api response
 				} 
 				else {
-					console.log('Error', error.message);
+					console.log("Error", error.message);
 				}
 			});
 	};
 
 	getAllNotes = () => {
-		const authToken = localStorage.getItem('AuthToken');
-		console.log(authToken);
+		if (!tokenCheck(history)) { // check if token exists
+			return;
+		} 
+		const authToken = localStorage.getItem("AuthToken");
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('/notes')
+			.get("/notes")
 			.then((response) => {
 				this.setState({
 					notes: response.data
@@ -82,15 +112,18 @@ class NoteForm extends Component {
 			})
 			.catch((error) => {
 				if (error.response) {
+					if (error.response.status === 403) { // expired token, delete and send user to login page
+						logout();
+					}
 					console.log(error.response.data); // print api response
 				} 
 				else {
-					console.log('Error', error.message);
+					console.log("Error", error.message);
 				}
-				// TODO: delete token, send to login page on error
-				// this.props.history.push('/login'); // go home
 			});
 	}
+
+	
 	
 	// will only render once
 	componentDidMount = () => {
@@ -104,7 +137,7 @@ class NoteForm extends Component {
 				{
 					Object.entries(categories).map((cat) => {
 						return (
-							<div>
+							<ul key={cat[0]}>
 							  <h3 key={cat[0]}>{cat[0]}</h3>
 							  {
 								cat[1].map((data) => {
@@ -115,7 +148,7 @@ class NoteForm extends Component {
 									)
 								})
 							  }
-							</div>
+							</ul>
 						  )
 					})
 				}
@@ -125,6 +158,7 @@ class NoteForm extends Component {
 					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
 					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
 				</div>
+				<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 			</div>
 		);
 	}

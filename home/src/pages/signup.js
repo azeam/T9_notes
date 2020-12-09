@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import SubmitButton from '../components/Button';
-import SignupInput from '../components/Input';
+import React, { Component } from "react";
+import axios from "axios";
+import SubmitButton from "../components/Button";
+import SignupInput from "../components/Input";
+import history from "../utils/history";
 
 class signup extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			username: '',
-			email: '',
-			password: '',
-			confirmPassword: ''
+			username: "",
+			email: "",
+			password: "",
+			confirmPassword: ""
 		};
     }
 
@@ -32,18 +33,17 @@ class signup extends Component {
 			confirmPassword: this.state.confirmPassword
 		};
 		axios
-			.post('/signup', newUserData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
+			.post("/signup", newUserData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
 				console.log("token: ", `${response.data.token}`); // print token to console for debug
-	//			localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-				this.props.history.push('/login'); // go to login page
+				history.push("/login"); // go to login page
 			})
 			.catch((error) => {
 				if (error.response) {
 					console.log(error.response.data); // print api response
 				} 
 				else {
-					console.log('Error', error.message);
+					console.log("Error", error.message);
 				}
 			});
 	};
