@@ -3,6 +3,7 @@ import axios from "axios";
 import SubmitButton from "../components/Button";
 import NoteBody from "../components/TextArea";
 import history from "../utils/history";
+import "../components/Background.css";
 
 const tokenCheck = () => {
     const authToken = localStorage.getItem("AuthToken");

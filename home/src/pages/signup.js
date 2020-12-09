@@ -3,6 +3,7 @@ import axios from "axios";
 import SubmitButton from "../components/Button";
 import SignupInput from "../components/Input";
 import history from "../utils/history";
+import "../components/Background.css";
 
 class signup extends Component {
 	constructor(props) {
@@ -50,15 +51,17 @@ class signup extends Component {
 
 	render() {
 		return (
-			<form className="signup">
-				<h1>Sign up</h1>
-				<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange}></SignupInput>
-				<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></SignupInput>
-				<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>
-				<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange}></SignupInput>
+			<div className="container">
+				<form className="signup">
+					<h1>Sign up</h1>
+					<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange}></SignupInput>
+					<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></SignupInput>
+					<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>
+					<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange}></SignupInput>
 
-				<SubmitButton className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
-			</form>
+					<SubmitButton className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
+				</form>
+			</div>
 		);
 	}
 }

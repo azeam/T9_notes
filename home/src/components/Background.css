@@ -1,4 +1,8 @@
 body{
-    background-color: seagreen;
-    z-index: -2;
+    position: relative;
+    background-image: url("Desert.jpg");
+    max-width: 100%;
+    height: 800px;
+    
+    
 }
