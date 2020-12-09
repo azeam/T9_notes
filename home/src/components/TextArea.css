@@ -1,0 +1,42 @@
+:root {
+    --primary: #4628ff;
+    --delete: #eb3f27;
+    --dark: #181717;
+    --white: #FFF;
+}
+
+textarea{
+    width:300px;
+}
+
+label{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 20px;
+}
+
+div{
+    
+    
+}
+
+#body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: rgba(238, 238, 238, 0.9);
+    color: var(--dark);
+    border: 2px solid var(--primary);
+    height: 250px;
+}
+
+#category{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background-color: rgba(238, 238, 238, 0.9);
+    color: var(--dark);
+    border: 2px solid var(--primary);
+    height:22px
+}

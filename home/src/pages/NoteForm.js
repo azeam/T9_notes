@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SubmitButton from '../components/Button';
 import NoteBody from '../components/TextArea';
+import Background from '../components/Background';
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -87,16 +88,18 @@ class NoteForm extends Component {
 
     render() {
 		return (
-			<div className="container">
-				<div className="oldNotes">
-					<div>{this.getOldNotes()}</div>
+			<Background>
+				<div className="container">
+					<div className="oldNotes">
+						<div>{this.getOldNotes()}</div>
+					</div>
+					<div className="noteForm">
+						<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
+						<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+						<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+					</div>
 				</div>
-				<div className="noteForm">
-					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
-					<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
-					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
-				</div>
-			</div>
+			</Background>
 		);
 	}
 }
