@@ -1,15 +1,16 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import SubmitButton from '../components/Button';
-import LoginInput from '../components/Input';
+import React, { Component } from "react";
+import axios from "axios";
+import SubmitButton from "../components/Button";
+import LoginInput from "../components/Input";
+import history from "../utils/history";
 
 class login extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			email: '',
-			password: ''
+			email: "",
+			password: ""
 		};
     }
 
@@ -28,18 +29,18 @@ class login extends Component {
 			password: this.state.password
 		};
 		axios
-			.post('/login', newLoginData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
+			.post("/login", newLoginData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
 				console.log("token: ", `${response.data.token}`); // print token to console for debug
-				localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-				this.props.history.push('/newnote'); // go home
+				localStorage.setItem("AuthToken", `Bearer ${response.data.token}`);
+				history.push("/"); // go home
 			})
 			.catch((error) => {
 				if (error.response) {
 					console.log(error.response.data); // print api response
 				} 
 				else {
-					console.log('Error', error.message);
+					console.log("Error", error.message);
 				}
 			});
 	};

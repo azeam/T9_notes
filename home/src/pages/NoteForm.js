@@ -1,18 +1,44 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import SubmitButton from '../components/Button';
-import NoteBody from '../components/TextArea';
+import React, { Component } from "react";
+import axios from "axios";
+import SubmitButton from "../components/Button";
+import NoteBody from "../components/TextArea";
+import history from "../utils/history";
+
+const tokenCheck = () => {
+    const authToken = localStorage.getItem("AuthToken");
+    if (authToken === null) {
+		history.push("/login"); // go to login page
+		return false;
+	}
+	return true;
+}
+
+const logout = () => {
+	const authToken = localStorage.getItem("AuthToken");
+	if (authToken !== null) {
+		localStorage.removeItem("AuthToken");
+	}
+	history.push("/login");
+}
+
+function groupBy(data, key) {
+	return data.reduce((acc, x) => {
+	  acc[x[key]] = [...(acc[x[key]] || []), x];
+	  return acc;
+	}, {});
+}
 
 class NoteForm extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			title: '',
-			body: '',
-			category: ''
+			notes: [],
+			title: "",
+			body: "",
+			category: ""
 		};
-    }
+	}
 
 	// update form field data
 	handleChange = (event) => {
@@ -23,9 +49,11 @@ class NoteForm extends Component {
 	
 	handleSubmit = (event) => {
 		event.preventDefault(); // handle form with js
-        if(this.state.body.length > 0)
-        {
-			var bodyTitle = this.state.body.split('\n', 1)[0];
+		if (!tokenCheck(history)) { // check if token exists
+			return;
+		}
+        if (this.state.body.length > 0) {
+			var bodyTitle = this.state.body.split("\n", 1)[0];
 			// var bodyBody = this.state.body.substring(bodyTitle.length, this.state.body.length); // Erase the title and continue
         }
 		const newNoteData = {
@@ -41,61 +69,96 @@ class NoteForm extends Component {
 	// 		body: this.state.body,
 	// 		category: this.state.category
 	// 	};
-
-		const authToken = localStorage.getItem('AuthToken');
+		
+		const authToken = localStorage.getItem("AuthToken");
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 
 		axios
-			.post('/notes', newNoteData)
+			.post("/notes", newNoteData)
 			.then((response) => {
-				this.props.history.push('/newnote'); // go home
+				this.getAllNotes(); // refresh category list
+				console.log("note saved");
 			})
 			.catch((error) => {
 				if (error.response) {
+					if (error.response.status === 403) {
+						/* 
+							TODO: no access, probably because token has expired, now it will delete the local token 
+							and send the user to the login page. This is likely not a user friendly solution, should be handled 
+							in a better way
+						*/ 
+						logout();
+					}
 					console.log(error.response.data); // print api response
 				} 
 				else {
-					console.log('Error', error.message);
+					console.log("Error", error.message);
 				}
 			});
 	};
-	
-	getOldNotes = (event) => {
-		const authToken = localStorage.getItem('AuthToken');
-		console.log(authToken);
+
+	getAllNotes = () => {
+		if (!tokenCheck(history)) { // check if token exists
+			return;
+		} 
+		const authToken = localStorage.getItem("AuthToken");
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('/notes')
+			.get("/notes")
 			.then((response) => {
-				response.data.forEach((note) => {
-					console.log(note.noteId);
-					console.log(note.body);
-				})
-				return response; // go home
+				this.setState({
+					notes: response.data
+				});
 			})
 			.catch((error) => {
 				if (error.response) {
+					if (error.response.status === 403) { // expired token, delete and send user to login page
+						logout();
+					}
 					console.log(error.response.data); // print api response
 				} 
 				else {
-					console.log('Error', error.message);
+					console.log("Error", error.message);
 				}
-				// delete token, send to login page on error
-				// this.props.history.push('/login'); // go home
 			});
+	}
+
+	
+	
+	// will only render once
+	componentDidMount = () => {
+		this.getAllNotes();
 	};
 
     render() {
+		const categories = groupBy(this.state.notes, "category");
 		return (
-			<div className="container">
-				<div className="oldNotes">
-					<div>{this.getOldNotes()}</div>
-				</div>
+			<div className="container">	
+				{
+					Object.entries(categories).map((cat, i) => {
+						return (
+							<ul key={i}>
+							  <li key={cat[0]}><h3>{cat[0]}</h3></li>
+							  {
+								cat[1].map((data) => {
+									return (
+										<li key={data.noteId} id={data.noteId}>
+											{data.body}
+										</li>
+									)
+								})
+							  }
+							</ul>
+						  )
+					})
+				}
+				
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
-					<NoteBody  id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
 					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
 				</div>
+				<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 			</div>
 		);
 	}
