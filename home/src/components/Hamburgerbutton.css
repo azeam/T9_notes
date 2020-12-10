@@ -63,3 +63,8 @@
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
   }
+
+  .ham-menu{
+    position: relative;
+    left: 10px;
+  }

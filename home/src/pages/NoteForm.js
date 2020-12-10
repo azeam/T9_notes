@@ -98,12 +98,13 @@ class NoteForm extends Component {
     render() {
 		return (
       <>
+	  
 			<div className="container">	
-
+				<Header className="header1" label="New note" name="newnote"></Header>
 				<Sidebar className="ham-menu">
 				</Sidebar>
       
-        <Header className="header1" label="New note" name="newnote"></Header>
+        		
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
 					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
