@@ -62,7 +62,7 @@ class signup extends Component {
 						<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>
 						<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange}></SignupInput>
 
-						<SubmitButton className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
+						<SubmitButton id="btnsignup" className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
 					</form>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>

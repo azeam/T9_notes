@@ -163,7 +163,7 @@ class NoteForm extends Component {
 						<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
 						<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
 					</div>
-					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
+					<SubmitButton id="btnnote" className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
 			</>

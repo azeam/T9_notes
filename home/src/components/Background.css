@@ -1,6 +1,6 @@
 body{
     position: relative;
-    background-image: url("Desert.jpg");
+    background-image: url("./imgs/Desert.jpg");
     max-width: 100%;
     height: 800px;
     display: flex;

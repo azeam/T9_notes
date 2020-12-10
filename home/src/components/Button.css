@@ -1,3 +1,4 @@
+
 :root {
     --primary: #4628ff;
     --delete: #eb3f27;
@@ -19,4 +20,19 @@
 
 .btn:hover{
     transform: translateY(2px);
+}
+
+#btnlogin{
+    background:url('./imgs/lock.png') no-repeat left center;
+    padding-left:20px;
+}
+
+#btnsignup{
+    background:url('./imgs/checkmark.png') no-repeat left center;
+    padding-left:20px;
+}
+
+#btnnote{
+    background:url('./imgs/document.png') no-repeat left center;
+    padding-left:20px;
 }

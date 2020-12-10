@@ -57,7 +57,7 @@ class login extends Component {
 						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
 						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
 						
-						<SubmitButton className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>	
+						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>	
 					</form>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
