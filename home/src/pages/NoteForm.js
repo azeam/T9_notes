@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import SubmitButton from '../components/Button';
 import NoteBody from '../components/TextArea';
+import Sidebar from '../components/Sidebar';
+import './NoteForm.css'
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -88,6 +90,9 @@ class NoteForm extends Component {
     render() {
 		return (
 			<div className="container">
+				<div className="ham-menu">
+				<Sidebar ></Sidebar>
+				</div>
 				<div className="oldNotes">
 					<div>{this.getOldNotes()}</div>
 				</div>

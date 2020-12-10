@@ -1,9 +1,13 @@
-import React, { Components } from 'React';
+import React from 'react';
+import './Hamburgerbutton.css';
 
-class Hambergerbutton extends Components{
-    return(
-        
-    );
+class Hambergerbutton extends React.Component{
+    
+    render() {
+        return(
+            <div></div>
+        );
+    }
 }
 
 export default (Hambergerbutton);
