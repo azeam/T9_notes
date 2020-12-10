@@ -1,13 +1,14 @@
 .container{
-    display: flex;
+    display: grid;
+    grid-template-columns: 350px 100px;
     position: relative;
 }
 .noteForm{
-    width: auto;
+    width: fit-content;
     height: auto;
 }
 .ham-menu{
-    width: 300px;
+    width: 150px;
     height: auto;
 }
 .oldNotes{

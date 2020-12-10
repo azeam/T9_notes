@@ -3,6 +3,8 @@ import axios from "axios";
 import SubmitButton from "../components/Button";
 import NoteBody from "../components/TextArea";
 import history from "../utils/history";
+import Sidebar from "../components/Sidebar";
+import "./NoteForm.css";
 
 const tokenCheck = () => {
     const authToken = localStorage.getItem("AuthToken");
@@ -19,13 +21,6 @@ const logout = () => {
 		localStorage.removeItem("AuthToken");
 	}
 	history.push("/login");
-}
-
-function groupBy(data, key) {
-	return data.reduce((acc, x) => {
-	  acc[x[key]] = [...(acc[x[key]] || []), x];
-	  return acc;
-	}, {});
 }
 
 class NoteForm extends Component {
@@ -96,69 +91,20 @@ class NoteForm extends Component {
 				}
 			});
 	};
-
-	getAllNotes = () => {
-		if (!tokenCheck(history)) { // check if token exists
-			return;
-		} 
-		const authToken = localStorage.getItem("AuthToken");
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		axios
-			.get("/notes")
-			.then((response) => {
-				this.setState({
-					notes: response.data
-				});
-			})
-			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) { // expired token, delete and send user to login page
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
-			});
-	}
-
 	
-	
-	// will only render once
-	componentDidMount = () => {
-		this.getAllNotes();
-	};
-
     render() {
-		const categories = groupBy(this.state.notes, "category");
 		return (
 			<div className="container">	
-				{
-					Object.entries(categories).map((cat, i) => {
-						return (
-							<ul key={i}>
-							  <li key={cat[0]}><h3>{cat[0]}</h3></li>
-							  {
-								cat[1].map((data) => {
-									return (
-										<li key={data.noteId} id={data.noteId}>
-											{data.body}
-										</li>
-									)
-								})
-							  }
-							</ul>
-						  )
-					})
-				}
+
+				<Sidebar className="ham-menu">
+				</Sidebar>
 				
 				<div className="noteForm">
-					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
-					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
+					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
 					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 				</div>
-				<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 			</div>
 		);
 	}
