@@ -4,7 +4,8 @@
   "description": "Final project in the class JavaScript EVXJUH20 (Javautvecklare, EC Utbildning Växjö 2020)",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.21.0"
+    "axios": "^0.21.0",
+    "react-burger-menu": "^2.9.2"
   },
   "devDependencies": {},
   "scripts": {
