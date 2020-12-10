@@ -3,7 +3,6 @@
     font-size: 46px;
     margin-bottom: 25px;
     margin-left: 5px;
-    font-size: 56px;
 
     background-color: #CA4246;
   
@@ -31,39 +30,40 @@
     -webkit-text-fill-color: transparent; 
     
     /* Animate the text when loading the element. */
-      /* This animates it on page load and when hovering out. */
-      animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
+    /* This animates it on page load and when hovering out. */
+    animation: rainbow-text-simple-animation-rev 0.75s ease forwards;
  
 }
-  .gradient-text:hover{
-      animation: rainbow-text-simple-animation 0.5s ease-in forwards;
-  }
+
+.header1:hover{
+    animation: rainbow-text-simple-animation 0.5s ease-in forwards;
+}
   
   
-  /* Move the background and make it smaller. */
-  /* Animation shown when entering the page and after the hover animation. */
-  @keyframes rainbow-text-simple-animation-rev {
-      0% {
-          background-size: 650%;
-      }
-      40% {
-          background-size: 650%;
-      }
-      100% {
-          background-size: 100%;
-      }
-  }
+/* Move the background and make it smaller. */
+/* Animation shown when entering the page and after the hover animation. */
+@keyframes rainbow-text-simple-animation-rev {
+    0% {
+      background-size: 650%;
+    }
+    40% {
+        background-size: 650%;
+    }
+    100% {
+        background-size: 100%;
+    }
+}
   
   /* Move the background and make it larger. */
   /* Animation shown when hovering over the text. */
-  @keyframes rainbow-text-simple-animation {
-      0% {
-          background-size: 100%;
-      }
-      80% {
-          background-size: 650%;
-      }
-      100% {
-          background-size: 650%;
-      }
-  }
+@keyframes rainbow-text-simple-animation {
+    0% {
+        background-size: 100%;
+    }
+    80% {
+        background-size: 650%;
+    }
+    100% {
+        background-size: 650%;
+    }
+}
