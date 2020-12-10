@@ -36,3 +36,8 @@
     background:url('./imgs/document.png') no-repeat left center;
     padding-left:20px;
 }
+
+#btnlogout{
+    background:url('./imgs/cross.png') no-repeat left center;
+    padding-left:20px;
+}

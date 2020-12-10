@@ -161,9 +161,9 @@ class NoteForm extends Component {
 					<div className="noteForm">
 						<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
 						<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
-						<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+						<SubmitButton id="btnnote" className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
 					</div>
-					<SubmitButton id="btnnote" className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
+					<SubmitButton id="btnlogout" className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
 			</>
