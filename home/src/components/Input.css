@@ -15,4 +15,5 @@ input{
     background-color: rgba(238, 238, 238, 0.9);
     color: var(--dark);
     border: 2px solid var(--primary);
+    width: 240px;
 }

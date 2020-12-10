@@ -4,6 +4,7 @@ import SubmitButton from "../components/Button";
 import NoteBody from "../components/TextArea";
 import history from "../utils/history";
 import "../components/Background.css";
+import Header from "../components/Header";
 
 const tokenCheck = () => {
     const authToken = localStorage.getItem("AuthToken");
@@ -153,7 +154,7 @@ class NoteForm extends Component {
 						  )
 					})
 				}
-				
+				<Header className="header1" label="Newnote" name="newnote">New Note</Header>
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
 					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>

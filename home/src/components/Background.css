@@ -6,3 +6,11 @@ body{
     
     
 }
+
+.container{
+    border: 2px solid black;
+    margin: 20px;
+    padding: 20px;
+    width: fit-content;
+    background-color: rgba(40, 34, 94, 0.4);
+}

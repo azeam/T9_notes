@@ -4,6 +4,7 @@ import SubmitButton from "../components/Button";
 import SignupInput from "../components/Input";
 import history from "../utils/history";
 import "../components/Background.css";
+import Header from "../components/Header";
 
 class signup extends Component {
 	constructor(props) {
@@ -53,7 +54,7 @@ class signup extends Component {
 		return (
 			<div className="container">
 				<form className="signup">
-					<h1>Sign up</h1>
+					<Header className="header1" label="Signup" name="signup">Sign Up</Header>
 					<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange}></SignupInput>
 					<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></SignupInput>
 					<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>

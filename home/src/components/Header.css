@@ -1,0 +1,8 @@
+.header1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 25px;
+    margin-left: 5px;
+    background: -webkit-linear-gradient(rgb(224, 119, 119), rgb(0, 0, 0));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
