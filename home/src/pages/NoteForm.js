@@ -5,6 +5,9 @@ import NoteBody from "../components/TextArea";
 import history from "../utils/history";
 import Sidebar from "../components/Sidebar";
 import "./NoteForm.css";
+import "../components/Background.css";
+import Header from "../components/Header";
+import Title from "../components/Title";
 
 const tokenCheck = () => {
     const authToken = localStorage.getItem("AuthToken");
@@ -94,11 +97,13 @@ class NoteForm extends Component {
 	
     render() {
 		return (
+      <>
 			<div className="container">	
 
 				<Sidebar className="ham-menu">
 				</Sidebar>
-				
+      
+        <Header className="header1" label="New note" name="newnote"></Header>
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
 					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
@@ -106,6 +111,8 @@ class NoteForm extends Component {
 					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 				</div>
 			</div>
+      <Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+      </>
 		);
 	}
 }
