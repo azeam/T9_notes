@@ -1,25 +1,13 @@
-:root {
-    --primary: #4628ff;
-    --delete: #eb3f27;
-    --dark: #181717;
-    --white: #FFF;
-}
+div{
 
-textarea{
-    width:300px;
-}
+} 
 
 label{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin-top: 20px;
-}
+} 
 
-div{
-    
-    
-}
-
-#body, #category{
+input{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 5px;
     cursor: pointer;
@@ -27,9 +15,5 @@ div{
     background-color: rgba(238, 238, 238, 0.9);
     color: var(--dark);
     border: 2px solid var(--primary);
-    height: 250px;
-}
-
-#category{
-    height:22px;
+    width: 240px;
 }
