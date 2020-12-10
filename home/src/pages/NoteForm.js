@@ -5,6 +5,7 @@ import NoteBody from "../components/TextArea";
 import history from "../utils/history";
 import "../components/Background.css";
 import Header from "../components/Header";
+import Title from "../components/Title";
 
 const tokenCheck = () => {
     const authToken = localStorage.getItem("AuthToken");
@@ -135,33 +136,37 @@ class NoteForm extends Component {
     render() {
 		const categories = groupBy(this.state.notes, "category");
 		return (
-			<div className="container">	
-				{
-					Object.entries(categories).map((cat, i) => {
-						return (
-							<ul key={i}>
-							  <li key={cat[0]}><h3>{cat[0]}</h3></li>
-							  {
-								cat[1].map((data) => {
-									return (
-										<li key={data.noteId} id={data.noteId}>
-											{data.body}
-										</li>
-									)
-								})
-							  }
-							</ul>
-						  )
-					})
-				}
-				<Header className="header1" label="Newnote" name="newnote">New Note</Header>
-				<div className="noteForm">
-					<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
-					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
-					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			<>
+				<div className="container">	
+					{
+						Object.entries(categories).map((cat, i) => {
+							return (
+								<ul key={i}>
+								<li key={cat[0]}><h3>{cat[0]}</h3></li>
+								{
+									cat[1].map((data) => {
+										return (
+											<li key={data.noteId} id={data.noteId}>
+												{data.body}
+											</li>
+										)
+									})
+								}
+								</ul>
+							)
+						})
+					}
+					
+					<Header className="header1" label="New note" name="newnote"></Header>
+					<div className="noteForm">
+						<NoteBody id="body" label="New note" name="body" onChange={this.handleChange}></NoteBody>
+						<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}></NoteBody>
+						<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+					</div>
+					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 				</div>
-				<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
-			</div>
+				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+			</>
 		);
 	}
 }

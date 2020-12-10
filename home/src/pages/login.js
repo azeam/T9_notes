@@ -5,6 +5,7 @@ import LoginInput from "../components/Input";
 import history from "../utils/history";
 import "../components/Background.css";
 import Header from "../components/Header";
+import Title from "../components/Title";
 
 class login extends Component {
 	constructor(props) {
@@ -49,15 +50,18 @@ class login extends Component {
 
 	render() {
 		return (
-			<div className="container">
-				<form className="login">
-					<Header className="header1" label="Login" name="login">Login</Header>
-					<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
-					<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
-					
-					<SubmitButton className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>
-				</form>
-			</div>
+			<>
+				<div className="container">
+					<form className="login">
+						<Header className="header1" label="Log in" name="login"></Header>
+						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
+						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
+						
+						<SubmitButton className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>	
+					</form>
+				</div>
+				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+			</>
 		);
 	}
 }
