@@ -113,7 +113,7 @@ exports.editNote = (request, response) => {
         .then((doc) => {
             if (!doc.exists) {
                 return response.status(404).json({ error: "Note not found" });
-			      }
+            }
             if (doc.data().username !== request.user.username) { // only allow editing of users own notes
                 return response.status(403).json({ error: "Unauthorized to edit this note" });
             }
