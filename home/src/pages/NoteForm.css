@@ -1,9 +1,9 @@
 .container{
-    display: grid;
-    grid-template-columns: 350px 100px;
+    display: flex;
     position: relative;
 }
 .noteForm{
+    margin-left: 350px;
     width: fit-content;
     height: auto;
 }
@@ -14,4 +14,5 @@
 .oldNotes{
     width: 0px;
     height: 0px;
+    background-color: rgba(131, 131, 131, 0.431);
 }
