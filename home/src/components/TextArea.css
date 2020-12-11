@@ -6,7 +6,7 @@
 }
 
 textarea{
-    width:300px;
+    width: 95%;
 }
 
 label{
@@ -14,8 +14,8 @@ label{
     margin-top: 20px;
 }
 
-div{
-    
+.noteform{
+    width: fit-content;
     
 }
 
@@ -32,4 +32,17 @@ div{
 
 #category{
     height:22px;
+}
+
+@media screen and (max-width: 480px) { 
+
+    
+    textarea{
+        
+        width: 95%;
+        
+    }
+
+   
+
 }
