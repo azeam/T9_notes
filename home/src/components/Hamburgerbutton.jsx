@@ -1,36 +1,26 @@
 import React from 'react';
 import CatBtn from "./Button";
+import {groupBy} from "../utils/grouper"
 import './Hamburgerbutton.css';
 
-const groupBy = (data, key) => {
-	return data.reduce((acc, x) => {
-	  acc[x[key]] = [...(acc[x[key]] || []), x];
-	  return acc;
-	}, {});
-}
-
 class Hambergerbutton extends React.Component{
-
-    // will only render once
-	componentDidMount() {
-		this.props.getAllNotes();
-	}
     
     render() {
         const categories = groupBy(this.props.notes, "category");
         return(
             <div className="">
                 {
-					Object.entries(categories).map((cat, i) => {
+					Object.entries(categories).map((cat) => {
+						let [id, allData] = cat;
 						return (
-							<ul key={i}>
-							  <p key={cat[0]}>
+							<ul key={id}>
+							  <p>
 								  <h3>
-									{cat[0]}
+									{id}
 								  </h3>
 							  </p>
 							  {
-								cat[1].map((data) => {
+								allData.map((data) => {
 									return (
 										<CatBtn label={data.body} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId) }}>
 											{data.body}
