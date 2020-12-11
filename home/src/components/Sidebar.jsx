@@ -15,7 +15,7 @@ class Sidebar extends Component {
             <div className="sidebar">
                 <Menu noOverlay="true">
                 <NewNote label="New note"></NewNote>
-                <Hamburger getAllNotes={this.props.getAllNotes} notes={this.props.notes} getSingleNote={this.props.getSingleNote}></Hamburger>
+                <Hamburger notes={this.props.notes} getSingleNote={this.props.getSingleNote}></Hamburger>
                 </Menu>
             </div>
         );
