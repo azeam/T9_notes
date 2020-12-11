@@ -21,11 +21,11 @@ class NoteForm extends Component {
 			category: "",
 			oldnote: null
 		};
-		this.getAllNotes = this.getAllNotes.bind(this);
-		this.getSingleNote = this.getSingleNote.bind(this);
+		// bind to this to call local functions in axios response from child
+		this.getSingleNote = this.getSingleNote.bind(this); 
 	}
 
-	// update form field data
+	// update form field to set data from
 	handleChange = (event) => {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -181,14 +181,19 @@ class NoteForm extends Component {
 					console.log("Error", error.message);
 				}
 			});
-    }
+	}
+	
+	// will only call on first render
+	componentDidMount() {
+		this.getAllNotes();
+	}
 	
     render() {
 		return (
 		<>
 			<div className="container">	
 
-				<Sidebar className="ham-menu" getAllNotes={this.getAllNotes} getSingleNote={this.getSingleNote} notes={this.state.notes}>
+				<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
 				</Sidebar>
 		
 			<Header className="header1" label="New note" name="newnote"></Header>
