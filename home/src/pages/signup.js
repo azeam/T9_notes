@@ -56,7 +56,6 @@ class signup extends Component {
 			<>
 				<div className="container">
 					<form className="signup">
-						<Header className="header1" label="Sign up" name="signup"></Header>
 						<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange}></SignupInput>
 						<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></SignupInput>
 						<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>
@@ -64,6 +63,7 @@ class signup extends Component {
 
 						<SubmitButton id="btnsignup" className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
 					</form>
+					<Header className="header1" label="Sign up" name="signup"></Header>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
 			</>

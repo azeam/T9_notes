@@ -53,12 +53,12 @@ class login extends Component {
 			<>
 				<div className="container">
 					<form className="login">
-						<Header className="header1" label="Log in" name="login"></Header>
 						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
 						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
 						
 						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>	
 					</form>
+					<Header className="header1" label="Log in" name="login"></Header>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
 			</>
