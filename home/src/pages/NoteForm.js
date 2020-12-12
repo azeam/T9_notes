@@ -113,7 +113,7 @@ class NoteForm extends Component {
 					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
 				</div>
 			</div>
-      <Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+      		<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
       </>
 		);
 	}
