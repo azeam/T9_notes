@@ -99,10 +99,11 @@ class NoteForm extends Component {
 		return (
       <>
 	  
+	  		<Sidebar className="ham-menu">
+			</Sidebar>
 			<div className="container">	
 				<Header className="header1" label="New note" name="newnote"></Header>
-				<Sidebar className="ham-menu">
-				</Sidebar>
+				
       
         		
 				<div className="noteForm">

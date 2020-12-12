@@ -11,7 +11,9 @@ textarea{
 
 label{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 0,47em;
     margin-top: 20px;
+
 }
 
 .noteform{
