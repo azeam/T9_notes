@@ -33,13 +33,16 @@ class Menu extends Component{
           let [id, allData] = cat;
           return (
             <ul key={id} > 
-                  {id}
+                  {id}<br></br>
               {
                 allData.map((data) => {
                   return (
-                    <CatBtn label={data.body} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId) }}>
-                      {data.body}
-                      </CatBtn>
+                      <div>
+                        <CatBtn label={data.body} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId) }}>
+                        {data.body}
+                        </CatBtn>
+                        <br></br>
+                      </div>
                 )
               })
             }

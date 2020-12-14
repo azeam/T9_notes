@@ -6,16 +6,21 @@
 }
 
 textarea{
-    width:300px;
+    width: 100%;
 }
 
 label{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Palatino Linotype", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-decoration: underline rgb(68, 68, 68);
+    letter-spacing: 0,47em;
     margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+
 }
 
-div{
-    
+.noteform{
+    width: fit-content;
     
 }
 
@@ -26,10 +31,27 @@ div{
     transition: transform 0.3s ease;
     background-color: rgba(238, 238, 238, 0.9);
     color: var(--dark);
-    border: 2px solid var(--primary);
+    border: 1px solid var(--primary);
     height: 250px;
 }
 
 #category{
     height:22px;
+}
+
+@media screen and (max-width: 480px) { 
+
+    /* label{
+        margin-left: 0px;
+
+    } */
+    
+    textarea{
+        
+        width: 95%;
+        
+    }
+
+   
+
 }

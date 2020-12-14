@@ -1,11 +1,20 @@
+
 .container{
-    display: flex;
-    position: relative;
+    display: grid;
+    grid-template-columns: 300px;
+    justify-items: center;
+    align-items: center;
+}
+
+.container label{
+    letter-spacing: 0.27em;
 }
 .noteForm{
     margin-left: 350px;
     width: fit-content;
     height: auto;
+    align-self: center;
+    justify-self: center;
 }
 .ham-menu{
     width: 150px;
@@ -14,5 +23,25 @@
 .oldNotes{
     width: 0px;
     height: 0px;
-    background-color: rgba(131, 131, 131, 0.431);
+}
+
+
+@media screen and (min-width: 350px) {
+    /* Styles go here */
+    .header1 {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}
+@media screen and (max-width: 480px) { 
+
+    .container{
+        
+        grid-template-columns: none;
+    }
+    .noteForm{
+        justify-items: left;
+        align-items: left;
+        margin-left: 10px;
+    }
 }
