@@ -9,6 +9,7 @@ import "./NoteForm.css";
 import "../components/Background.css";
 import Header from "../components/Header";
 import Title from "../components/Title";
+import MessageBox from "../components/MessageBox";
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -19,7 +20,8 @@ class NoteForm extends Component {
 			title: "",
 			body: "",
 			category: "",
-			oldnote: null
+			oldnote: null,
+			message: []
 		};
 		// bind to this to call local functions in axios response from child
 		this.getSingleNote = this.getSingleNote.bind(this); 
@@ -37,8 +39,23 @@ class NoteForm extends Component {
 		this.setState({
 			oldnote: id
 		});
-		console.log("oldnote :" + this.state.oldnote);
 	};
+
+	handleError = (error) => {
+		if (error.response && error.response.status !== 404) {
+			if (error.response.status === 403) { // expired token, delete and send user to login page
+				logout();
+			}
+			this.setState({
+				message: Object.entries(error.response.data)
+			});
+		} 
+		else {
+			this.setState({
+				message: Object.entries({"Error": error.message})
+			});
+		}
+	}
 
 	// get all notes by user
 	getAllNotes = () => {
@@ -53,18 +70,9 @@ class NoteForm extends Component {
 				this.setState({
 					notes: response.data
 				});
-				console.log(response);
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) { // expired token, delete and send user to login page
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 
@@ -73,24 +81,13 @@ class NoteForm extends Component {
 		axios
 			.post("/notes", noteData)
 			.then((response) => {
-				this.getAllNotes(); // refresh category list
-				console.log(response);
+				this.getAllNotes(); // refresh category list			
+				this.setState({
+					message: Object.entries({"Success": "Note saved"})
+				});
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) {
-						/* 
-							TODO: no access, probably because token has expired, now it will delete the local token 
-							and send the user to the login page. This is likely not a user friendly solution, should be handled 
-							in a better way
-						*/ 
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 
@@ -100,29 +97,17 @@ class NoteForm extends Component {
 			.put("/notes/" + id, noteData)
 			.then((response) => {
 				this.getAllNotes(); // refresh category list
-				console.log(response);
+				this.setState({
+					message: Object.entries({"Success": "Note updated"})
+				});
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) {
-						/* 
-							TODO: no access, probably because token has expired, now it will delete the local token 
-							and send the user to the login page. This is likely not a user friendly solution, should be handled 
-							in a better way
-						*/ 
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 	
 	// on form submit (save)
 	handleSubmit = (event) => {
-		console.log("submit handler old note id " + this.state.oldnote);
 		event.preventDefault(); // handle form with js
 		if (!tokenCheck(history)) { // check if token exists
 			return;
@@ -151,7 +136,6 @@ class NoteForm extends Component {
 
 	// open single note for editing/reading
 	getSingleNote(id) {
-		console.log("called single note function");
         if (!tokenCheck(history)) { // check if token exists
             logout();
 		} 
@@ -171,15 +155,7 @@ class NoteForm extends Component {
 				this.handleOld(id);
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) { // expired token, delete and send user to login page
-					 	logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 	
@@ -189,7 +165,7 @@ class NoteForm extends Component {
 	}
 	
     render() {
-		return 
+		return (
       <>
         <Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
         </Sidebar>
@@ -198,7 +174,8 @@ class NoteForm extends Component {
           <div className="noteForm">
             <NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
             <NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
-            <SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+            <MessageBox className="message" message={this.state.message}></MessageBox>
+			<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
             <SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
           </div>
         </div>
