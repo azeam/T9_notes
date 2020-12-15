@@ -28,25 +28,27 @@ class Menu extends Component{
     
     return (
       <StyledMenu open={this.props.open} aria-hidden={!isHidden} {...this.props}>
+        <CatBtn label="New Note"></CatBtn>
       {
         Object.entries(categories).map((cat) => {
           let [id, allData] = cat;
           return (
+            <div>
             <ul key={id} > 
                   {id}<br></br>
               {
                 allData.map((data) => {
                   return (
-                      <div>
+                    <div>
                         <CatBtn label={data.body} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId) }}>
                         {data.body}
-                        </CatBtn>
-                        <br></br>
+                        </CatBtn><br></br>
                       </div>
                 )
               })
             }
             </ul>
+            </div>
             )
           })
       }
