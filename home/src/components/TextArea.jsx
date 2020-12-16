@@ -6,7 +6,7 @@ class TextArea extends Component{
         return(
             <>
                 <label htmlFor={this.props.name}>{this.props.label}</label><br/>
-                <textarea name={this.props.name} id={this.props.id} onChange={this.props.onChange}></textarea><br/>
+                <textarea value={this.props.value} name={this.props.name} id={this.props.id} onChange={this.props.onChange}></textarea><br/>
             </>
         );
     }
