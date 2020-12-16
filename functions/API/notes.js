@@ -101,6 +101,7 @@ exports.editNote = (request, response) => {
     if (request.body.noteId || request.body.timestamp) {
         return response.status(403).json({ message: "Not allowed to edit" });
     }
+    request.body.timestamp = new Date().toISOString();
     // update note with id noteId
     let document = db.collection("notes").doc(`${request.params.noteId}`);
     document
@@ -113,6 +114,7 @@ exports.editNote = (request, response) => {
                 return response.status(403).json({ error: "Unauthorized to edit this note" });
             }
             if (document.update(request.body)) {
+                console.log(request.body);
                 response.json({ message: "Successfully updated" });
             }
         })
