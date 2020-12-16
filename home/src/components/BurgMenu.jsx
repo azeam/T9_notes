@@ -4,6 +4,7 @@ import { StyledMenu } from './BurgMenu.style';
 import { groupBy } from '../utils/grouper';
 import CatBtn from './Button';
 import HamMenu from './HamMenu';
+import Moment from 'react-moment';
 
 
 class Menu extends Component{
@@ -45,11 +46,11 @@ class Menu extends Component{
               {
                 allData.map((data) => {
                   return (
-                    <div>
-                        <CatBtn label={data.title} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
+                    <div key={data.noteId}>
+                        <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
                         {data.body}
-                        </CatBtn>
-                        <p>{data.timestamp}</p>
+                        </CatBtn><br></br>
+                        <Moment format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
                       </div>
                 )
               })

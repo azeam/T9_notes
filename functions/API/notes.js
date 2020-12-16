@@ -114,7 +114,6 @@ exports.editNote = (request, response) => {
                 return response.status(403).json({ error: "Unauthorized to edit this note" });
             }
             if (document.update(request.body)) {
-                console.log(request.body);
                 response.json({ message: "Successfully updated" });
             }
         })
