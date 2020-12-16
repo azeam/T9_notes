@@ -151,7 +151,6 @@ class NoteForm extends Component {
 		}
         if (this.state.body.length > 0) {
 			var bodyTitle = this.state.body.split("\n", 1)[0];
-			// var bodyBody = this.state.body.substring(bodyTitle.length, this.state.body.length); // Erase the title and continue
         }
 		const noteData = {
 			title: bodyTitle,
