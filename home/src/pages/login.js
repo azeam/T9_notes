@@ -7,6 +7,7 @@ import "../components/Background.css";
 import Header from "../components/Header";
 import Title from "../components/Title";
 import MessageBox from "../components/MessageBox";
+import { Link } from "react-router-dom";
 
 class login extends Component {
 	constructor(props) {
@@ -47,27 +48,37 @@ class login extends Component {
 				} 
 				else {
 					this.setState({
-						message: Object.entries({"Error": error.message})
+						message: Object.entries({ error: error.message})
 					});
 				}
 			});
 	};
+
+	// if user sign up before coming here, show message
+	componentDidMount() {
+		if (this.props.location.state) {
+			this.setState({
+				message: Object.entries(this.props.location.state.message)
+			});
+		}
+	}
 
 	render() {
 		return (
 			<>
 				<div className="container">
 					<form className="login">
-						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
-						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
-						
-						<MessageBox className="message" message={this.state.message}></MessageBox>
-						
-						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>	
+						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange} />
+						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange} />
+						<MessageBox className="message" message={this.state.message} />
+						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit} />
 					</form>
-					<Header className="header1" label="Log in" name="login"></Header>
+					<Link to={location => ({ ...location, pathname: "/signup" })}>
+						Sign up	
+					</Link>
+					<Header className="header1" label="Log in" name="login" />
 				</div>
-				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>
 		);
 	}
