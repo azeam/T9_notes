@@ -189,24 +189,23 @@ class NoteForm extends Component {
 	}
 	
     render() {
-		return (
-			<>
-				<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
-				</Sidebar>
-				<div className="container">	
-				<Header className="header1" label="New note" name="newnote"></Header>
-				<div className="noteForm">
-					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
-					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
-					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
-					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
-				</div>
-				</div>
-
-				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
-			</>
-		);
-		
+		return 
+		<>
+		  <Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
+		  </Sidebar>
+		  <div className="container">	
+			<Header className="header1" label="New note" name="newnote"></Header>
+			<div className="noteForm">
+			  <NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
+			  <NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
+			  <SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
+			  <SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
+			</div>
+		  </div>
+  
+			<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+		</>
+    
 	}
 }
 
