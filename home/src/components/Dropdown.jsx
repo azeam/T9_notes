@@ -11,7 +11,7 @@ class Dropdown extends Component{
                 <option value="" selected disabled hidden>Select category</option>
                 {
                     Object.entries(categories).map((cat) => {
-						let [id, data] = cat;
+						let [id] = cat;
 						return (
 							<option key={id}>{id}</option>
 						  )

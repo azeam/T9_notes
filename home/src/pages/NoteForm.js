@@ -59,12 +59,11 @@ class NoteForm extends Component {
 	};
 
 	newNote() {
-		document.getElementById("body").value = "";
-		document.getElementById("category").value = "";
 		this.setState({
 			title: "",
 			body: "",
 			category: "",
+			categoryDropdown: "",
 			oldnote: null
 		});
 	}
@@ -181,8 +180,6 @@ class NoteForm extends Component {
 		axios
 			.get("/notes/" + id)
 			.then((response) => {
-				document.getElementById("body").value = response.data.body;
-				document.getElementById("category").value = response.data.category;
 				// also save to local variable because field will not update (handleChange) if user does not
 				// edit both fields
 				this.setState({
@@ -209,7 +206,7 @@ class NoteForm extends Component {
 			<div className="container">	
 				<Header className="header1" label="New note" name="newnote" />
 				<div className="noteForm">
-					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
+					<NoteBody value={this.state.title + this.state.body} id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
 					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
 					<CategoryDropdown value={this.state.categoryDropdown} id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
 					<MessageBox className="message" message={this.state.message} />
