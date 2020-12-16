@@ -23,7 +23,7 @@ class NoteForm extends Component {
 			oldnote: null,
 			message: []
 		};
-		// bind to this to call local functions in axios response from child
+		// bind to this to be able to call local functions in axios response from child
 		this.getSingleNote = this.getSingleNote.bind(this); 
 	}
 
@@ -41,18 +41,16 @@ class NoteForm extends Component {
 		});
 	};
 
+	// set error msg to show user
 	handleError = (error) => {
-		if (error.response && error.response.status !== 404) {
-			if (error.response.status === 403) { // expired token, delete and send user to login page
-				logout();
-			}
+		if (error.response) {
 			this.setState({
 				message: Object.entries(error.response.data)
 			});
-		} 
+		}
 		else {
 			this.setState({
-				message: Object.entries({"Error": error.message})
+				message: Object.entries({ error: error.message})
 			});
 		}
 	}
@@ -83,7 +81,7 @@ class NoteForm extends Component {
 			.then((response) => {
 				this.getAllNotes(); // refresh category list			
 				this.setState({
-					message: Object.entries({"Success": "Note saved"})
+					message: Object.entries(response.data)
 				});
 			})
 			.catch((error) => {
@@ -96,9 +94,10 @@ class NoteForm extends Component {
 		axios
 			.put("/notes/" + id, noteData)
 			.then((response) => {
+				console.log(response.data);
 				this.getAllNotes(); // refresh category list
 				this.setState({
-					message: Object.entries({"Success": "Note updated"})
+					message: Object.entries(response.data)
 				});
 			})
 			.catch((error) => {
@@ -166,23 +165,20 @@ class NoteForm extends Component {
 	
     render() {
 		return (
-		<div>
-			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
-			</Sidebar>
+		<>
+			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} />
 			<div className="container">	
-			<Header className="header1" label="New note" name="newnote"></Header>
-			<div className="noteForm">
-				<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
-				<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
-				<MessageBox className="message" message={this.state.message}></MessageBox>
-				<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
-				<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
+				<Header className="header1" label="New note" name="newnote" />
+				<div className="noteForm">
+					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
+					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
+					<MessageBox className="message" message={this.state.message} />
+					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit} />
+					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout} />
+				</div>
 			</div>
-			</div>
-
-			<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
-		</div>
-
+			<Title className="title" label="Super Dementia Helper 2000" name="title" />
+		</>
 		)
 	}
 }

@@ -86,7 +86,7 @@ exports.signUpUser = (request, response) => {
         })
         .then(() => {
             if (keepOn) {
-                return response.status(201).json({ token });
+                return response.status(201).json({ message: "User signed up, you can now log in." });
             }
         })
         .catch((err) => {
