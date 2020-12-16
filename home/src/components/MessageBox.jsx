@@ -4,7 +4,7 @@ class MessageBox extends Component{
     render(){
         return(
             <>
-                {this.props.message.map(([key, msg]) => <p className={key}>{`${msg}`}</p>)}
+                {this.props.message.map((i, [key, msg]) => <p key={i} className={key}>{`${msg}`}</p>)}
             </>
         );
     }
