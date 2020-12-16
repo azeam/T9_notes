@@ -48,7 +48,8 @@ class Menu extends Component{
                     <div>
                         <CatBtn label={data.title} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
                         {data.body}
-                        </CatBtn><br></br>
+                        </CatBtn>
+                        <p>{data.timestamp}</p>
                       </div>
                 )
               })

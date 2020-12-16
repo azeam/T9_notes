@@ -42,7 +42,7 @@ class NoteForm extends Component {
 		// if written category matches existing update dropdown
 		if (event.target.name === "category") {
 			const [note] = this.state.notes;
-			if (note.category === event.target.value) {
+			if (note && note.category === event.target.value) {
 				this.setState({
 					categoryDropdown: event.target.value
 				});
@@ -206,7 +206,7 @@ class NoteForm extends Component {
 			<div className="container">	
 				<Header className="header1" label="New note" name="newnote" />
 				<div className="noteForm">
-					<NoteBody value={this.state.title + this.state.body} id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
+					<NoteBody value={this.state.body} id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
 					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
 					<CategoryDropdown value={this.state.categoryDropdown} id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
 					<MessageBox className="message" message={this.state.message} />

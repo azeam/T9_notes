@@ -5,7 +5,7 @@ exports.getAllNotes = (request, response) => {
 	db
 		.collection("notes")
         .where("username", "==", request.user.username)
-		.orderBy("createdAt", "desc")
+		.orderBy("timestamp", "desc")
 		.get()
 		.then((data) => {
 			let notes = [];
@@ -15,7 +15,7 @@ exports.getAllNotes = (request, response) => {
                     title: doc.data().title,
                     body: doc.data().body,
                     category: doc.data().category,
-					createdAt: doc.data().createdAt,
+					timestamp: doc.data().timestamp,
 				});
 			});
 			return response.json(notes);
@@ -61,7 +61,7 @@ exports.saveNewNote = (request, response) => {
         body: request.body.body,
         category: request.body.category,
 		username: request.user.username,
-        createdAt: new Date().toISOString()
+        timestamp: new Date().toISOString()
     }
     db
         .collection("notes")
@@ -98,7 +98,7 @@ exports.deleteNote = (request, response) => {
 // edit note
 exports.editNote = (request, response) => { 
     // disallow edit of id and date
-    if (request.body.noteId || request.body.createdAt) {
+    if (request.body.noteId || request.body.timestamp) {
         return response.status(403).json({ message: "Not allowed to edit" });
     }
     // update note with id noteId
