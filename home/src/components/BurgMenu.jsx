@@ -46,7 +46,7 @@ class Menu extends Component{
                 allData.map((data) => {
                   return (
                     <div>
-                        <CatBtn label={data.body} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
+                        <CatBtn label={data.title} key={data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
                         {data.body}
                         </CatBtn><br></br>
                       </div>
