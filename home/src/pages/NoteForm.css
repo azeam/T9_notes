@@ -16,8 +16,13 @@
     justify-self: center;
 }
 .ham-menu{
-    width: 150px;
+    width: 250px;
     height: auto;
+}
+#main-menu{
+    position: fixed;
+    top: 150px;
+    right: 100px;
 }
 .oldNotes{
     width: 0px;
@@ -25,7 +30,7 @@
 }
 
 #category{
-    width: 100%;
+    width: 95%;
 }
 
 #categoryDropdown{
@@ -40,7 +45,6 @@
 }
 
 @media screen and (min-width: 350px) {
-    /* Styles go here */
     .header1 {
         margin-left: 0px;
         margin-right: 0px;
@@ -57,4 +61,31 @@
         align-items: left;
         margin-left: 10px;
     }
+}
+
+@media screen and (max-width: 550px) { 
+    #main-menu{
+        position: fixed;
+        top: 10px;
+        left: 400px;
+    }
+
+}
+
+@media screen and (max-width: 440px) { 
+    #main-menu{
+        position: fixed;
+        top: 10px;
+        left: 330px;
+    }
+
+}
+
+@media screen and (max-width: 370px) { 
+    #main-menu{
+        position: fixed;
+        top: 10px;
+        left: 280px;
+    }
+
 }

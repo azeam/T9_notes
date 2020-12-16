@@ -202,8 +202,8 @@ class NoteForm extends Component {
 					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
 					<CategoryDropdown value={this.state.categoryDropdown} id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
 					<MessageBox className="message" message={this.state.message} />
-					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit} />
-					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout} />
+					<SubmitButton id="btn-note" className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit} />
+					<SubmitButton id="btn-logout" className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout} />
 				</div>
 			</div>
 			<Title className="title" label="Super Dementia Helper 2000" name="title" />
