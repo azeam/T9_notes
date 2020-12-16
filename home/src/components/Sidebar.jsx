@@ -1,10 +1,7 @@
-import React, { Component, useState, useRef } from 'react';
-import Hamburger from "./Hamburgerbutton";
+import React, { useState, useRef } from 'react';
 import { useOnClickOutside } from './SidebarHook'; 
-import NewNote from './Button';
 import Burger from './BurgMenu';
 import HamMenu from './HamMenu';
-
 import './Sidebar.css';
 
 function Sidebar(props) {
@@ -17,10 +14,9 @@ function Sidebar(props) {
   return (
       <>
         <div ref={node}>
-            <Burger notes={props.notes} getSingleNote={props.getSingleNote} open={open} setOpen={setOpen} aria-controls={menuId} />
+            <Burger notes={props.notes} getSingleNote={props.getSingleNote} newNote={props.newNote} open={open} setOpen={setOpen} aria-controls={menuId} />
             <HamMenu open={open} setOpen={setOpen} id={menuId} />
         </div>
-        
       </>
   );
 }

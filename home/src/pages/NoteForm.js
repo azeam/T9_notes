@@ -26,8 +26,9 @@ class NoteForm extends Component {
 			categoryDropdown: "",
 			message: []
 		};
-		// bind to this to be able to call local functions in axios response from child
-		this.getSingleNote = this.getSingleNote.bind(this); 
+		// bind to this to call local functions in axios response from child
+		this.getSingleNote = this.getSingleNote.bind(this);
+		this.newNote = this.newNote.bind(this);
 	}
 
 	// update form field to set data from
@@ -56,6 +57,17 @@ class NoteForm extends Component {
 			[event.target.name]: event.target.value
 		});
 	};
+
+	newNote() {
+		document.getElementById("body").value = "";
+		document.getElementById("category").value = "";
+		this.setState({
+			title: "",
+			body: "",
+			category: "",
+			oldnote: null
+		});
+	}
 
 	// get old note id from child after selecting a note to edit (or set to null when making a new)
 	handleOld = (id) => {
@@ -194,7 +206,7 @@ class NoteForm extends Component {
     render() {
 		return (
 		<>
-			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} />
+			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} newNote={this.newNote} />
 			<div className="container">	
 				<Header className="header1" label="New note" name="newnote" />
 				<div className="noteForm">
