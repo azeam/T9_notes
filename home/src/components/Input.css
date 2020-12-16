@@ -11,16 +11,20 @@ input{
     background-color: rgba(238, 238, 238, 0.9);
     color: var(--dark);
     border: 1px solid var(--primary);
-    width: 200px;
+    width: 250px;
     margin-bottom: 15px;
     cursor: text;
 }
 
-@media screen and (min-width: 320px) {
+
+@media screen and (max-width: 350px) {
     /* Styles go here */
     input {
         margin-left: 0px;
         margin-right: 0px;
-        /* width: 250px; */
+        width: 100%;
+    }
+    form{
+        width: 90%;
     }
 }

@@ -63,6 +63,7 @@ class signup extends Component {
 		return (
 			<>
 				<div className="container">
+					<Header className="header1" label="Sign up" name="signup" />
 					<form className="signup">
 						<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange} />
 						<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange} />
@@ -74,7 +75,7 @@ class signup extends Component {
 					<Link to={location => ({ ...location, pathname: "/login" })}>
 						Log in	
 					</Link>
-					<Header className="header1" label="Sign up" name="signup" />
+					
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>
