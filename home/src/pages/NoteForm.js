@@ -189,7 +189,7 @@ class NoteForm extends Component {
 	}
 	
     render() {
-		return 
+		return (
 		<>
 		  <Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
 		  </Sidebar>
@@ -205,7 +205,9 @@ class NoteForm extends Component {
   
 			<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
 		</>
-    
+	
+	
+		);
 	}
 }
 
