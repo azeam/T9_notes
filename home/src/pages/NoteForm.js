@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import SubmitButton from "../components/Button";
 import NoteBody from "../components/TextArea";
+import CategoryDropdown from "../components/Dropdown";
 import history from "../utils/history";
 import {logout, tokenCheck} from "../utils/handleToken";
 import Sidebar from "../components/Sidebar";
@@ -9,6 +10,8 @@ import "./NoteForm.css";
 import "../components/Background.css";
 import Header from "../components/Header";
 import Title from "../components/Title";
+import MessageBox from "../components/MessageBox";
+import Input from "../components/Input";
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -19,14 +22,36 @@ class NoteForm extends Component {
 			title: "",
 			body: "",
 			category: "",
-			oldnote: null
+			oldnote: null,
+			categoryDropdown: "",
+			message: []
 		};
-		// bind to this to call local functions in axios response from child
+		// bind to this to be able to call local functions in axios response from child
 		this.getSingleNote = this.getSingleNote.bind(this); 
 	}
 
 	// update form field to set data from
 	handleChange = (event) => {
+		// also updated input field when changing dropdown
+		if (event.target.name === "categoryDropdown") {
+			this.setState({
+				category: event.target.value
+			});	
+		}
+		// if written category matches existing update dropdown
+		if (event.target.name === "category") {
+			const [note] = this.state.notes;
+			if (note.category === event.target.value) {
+				this.setState({
+					categoryDropdown: event.target.value
+				});
+			}
+			else {
+				this.setState({
+					categoryDropdown: ""
+				});
+			}
+		}
 		this.setState({
 			[event.target.name]: event.target.value
 		});
@@ -37,8 +62,26 @@ class NoteForm extends Component {
 		this.setState({
 			oldnote: id
 		});
-		console.log("oldnote :" + this.state.oldnote);
 	};
+
+	// set error msg to show user
+	handleError = (error) => {
+		if (error.response) {
+			if (error.response.status === 403) { // token not (longer) valid
+				logout();
+			}
+			else {
+				this.setState({
+					message: Object.entries(error.response.data)
+				});
+			}
+		}
+		else {
+			this.setState({
+				message: Object.entries({ error: error.message})
+			});
+		}
+	}
 
 	// get all notes by user
 	getAllNotes = () => {
@@ -53,18 +96,9 @@ class NoteForm extends Component {
 				this.setState({
 					notes: response.data
 				});
-				console.log(response);
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) { // expired token, delete and send user to login page
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 
@@ -73,24 +107,13 @@ class NoteForm extends Component {
 		axios
 			.post("/notes", noteData)
 			.then((response) => {
-				this.getAllNotes(); // refresh category list
-				console.log(response);
+				this.getAllNotes(); // refresh category list			
+				this.setState({
+					message: Object.entries(response.data)
+				});
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) {
-						/* 
-							TODO: no access, probably because token has expired, now it will delete the local token 
-							and send the user to the login page. This is likely not a user friendly solution, should be handled 
-							in a better way
-						*/ 
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 
@@ -100,29 +123,17 @@ class NoteForm extends Component {
 			.put("/notes/" + id, noteData)
 			.then((response) => {
 				this.getAllNotes(); // refresh category list
-				console.log(response);
+				this.setState({
+					message: Object.entries(response.data)
+				});
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) {
-						/* 
-							TODO: no access, probably because token has expired, now it will delete the local token 
-							and send the user to the login page. This is likely not a user friendly solution, should be handled 
-							in a better way
-						*/ 
-						logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 	
 	// on form submit (save)
 	handleSubmit = (event) => {
-		console.log("submit handler old note id " + this.state.oldnote);
 		event.preventDefault(); // handle form with js
 		if (!tokenCheck(history)) { // check if token exists
 			return;
@@ -151,7 +162,6 @@ class NoteForm extends Component {
 
 	// open single note for editing/reading
 	getSingleNote(id) {
-		console.log("called single note function");
         if (!tokenCheck(history)) { // check if token exists
             logout();
 		} 
@@ -166,20 +176,13 @@ class NoteForm extends Component {
 				// edit both fields
 				this.setState({
 					body: response.data.body,
-					category: response.data.category
+					category: response.data.category,
+					categoryDropdown: response.data.category
 				});
 				this.handleOld(id);
 			})
 			.catch((error) => {
-				if (error.response) {
-					if (error.response.status === 403) { // expired token, delete and send user to login page
-					 	logout();
-					}
-					console.log(error.response.data); // print api response
-				} 
-				else {
-					console.log("Error", error.message);
-				}
+				this.handleError(error);
 			});
 	}
 	
@@ -191,23 +194,21 @@ class NoteForm extends Component {
     render() {
 		return (
 		<>
-		  <Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes}>
-		  </Sidebar>
-		  <div className="container">	
-			<Header className="header1" label="New note" name="newnote"></Header>
-			<div className="noteForm">
-			  <NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
-			  <NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
-			  <SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit}></SubmitButton>
-			  <SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout}></SubmitButton>
+			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} />
+			<div className="container">	
+				<Header className="header1" label="New note" name="newnote" />
+				<div className="noteForm">
+					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
+					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
+					<CategoryDropdown value={this.state.categoryDropdown} id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
+					<MessageBox className="message" message={this.state.message} />
+					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit} />
+					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout} />
+				</div>
 			</div>
-		  </div>
-  
-			<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+			<Title className="title" label="Super Dementia Helper 2000" name="title" />
 		</>
-	
-	
-		);
+		)
 	}
 }
 

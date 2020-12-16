@@ -6,6 +6,8 @@ import history from "../utils/history";
 import "../components/Background.css";
 import Header from "../components/Header";
 import Title from "../components/Title";
+import MessageBox from "../components/MessageBox";
+import { Link } from "react-router-dom";
 
 class login extends Component {
 	constructor(props) {
@@ -13,10 +15,11 @@ class login extends Component {
 
 		this.state = {
 			email: "",
-			password: ""
+			password: "",
+			message: []
 		};
     }
-
+ 
 	// update form field data
     handleChange = (event) => {
 		this.setState({
@@ -34,33 +37,48 @@ class login extends Component {
 		axios
 			.post("/login", newLoginData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
-				console.log("token: ", `${response.data.token}`); // print token to console for debug
 				localStorage.setItem("AuthToken", `Bearer ${response.data.token}`);
 				history.push("/"); // go home
 			})
 			.catch((error) => {
 				if (error.response) {
-					console.log(error.response.data); // print api response
+					this.setState({
+						message: Object.entries(error.response.data)
+					});
 				} 
 				else {
-					console.log("Error", error.message);
+					this.setState({
+						message: Object.entries({ error: error.message})
+					});
 				}
 			});
 	};
+
+	// if user sign up before coming here, show message
+	componentDidMount() {
+		if (this.props.location.state) {
+			this.setState({
+				message: Object.entries(this.props.location.state.message)
+			});
+		}
+	}
 
 	render() {
 		return (
 			<>
 				<div className="container">
 					<form className="login">
-						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></LoginInput>
-						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></LoginInput>
-						
-						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit}></SubmitButton>	
+						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange} />
+						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange} />
+						<MessageBox className="message" message={this.state.message} />
+						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit} />
 					</form>
-					<Header className="header1" label="Log in" name="login"></Header>
+					<Link to={location => ({ ...location, pathname: "/signup" })}>
+						Sign up	
+					</Link>
+					<Header className="header1" label="Log in" name="login" />
 				</div>
-				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>
 		);
 	}

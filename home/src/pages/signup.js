@@ -6,6 +6,8 @@ import history from "../utils/history";
 import "../components/Background.css";
 import Header from "../components/Header";
 import Title from "../components/Title";
+import MessageBox from "../components/MessageBox";
+import { Link } from "react-router-dom";
 
 class signup extends Component {
 	constructor(props) {
@@ -15,7 +17,8 @@ class signup extends Component {
 			username: "",
 			email: "",
 			password: "",
-			confirmPassword: ""
+			confirmPassword: "",
+			message: []
 		};
     }
 
@@ -38,15 +41,20 @@ class signup extends Component {
 		axios
 			.post("/signup", newUserData) // the proxy setting in package.json will re-route the request to the firebase db with /signup postpended, set to  https://us-central1-t9notes-5eb44.cloudfunctions.net/api if not running local api
 			.then((response) => {
-				console.log("token: ", `${response.data.token}`); // print token to console for debug
-				history.push("/login"); // go to login page
+				history.push("/login", {
+					message: response.data
+				});
 			})
 			.catch((error) => {
 				if (error.response) {
-					console.log(error.response.data); // print api response
+					this.setState({
+						message: Object.entries(error.response.data)
+					});
 				} 
 				else {
-					console.log("Error", error.message);
+					this.setState({
+						message: Object.entries({ error: error.message})
+					});
 				}
 			});
 	};
@@ -56,16 +64,19 @@ class signup extends Component {
 			<>
 				<div className="container">
 					<form className="signup">
-						<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange}></SignupInput>
-						<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange}></SignupInput>
-						<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange}></SignupInput>
-						<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange}></SignupInput>
-
-						<SubmitButton id="btnsignup" className="btn" label="SEND" type="submit" onClick={this.handleSubmit}></SubmitButton>
+						<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange} />
+						<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange} />
+						<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange} />
+						<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange} />
+						<MessageBox className="message" message={this.state.message} />
+						<SubmitButton id="btnsignup" className="btn" label="SEND" type="submit" onClick={this.handleSubmit} />						
 					</form>
-					<Header className="header1" label="Sign up" name="signup"></Header>
+					<Link to={location => ({ ...location, pathname: "/login" })}>
+						Log in	
+					</Link>
+					<Header className="header1" label="Sign up" name="signup" />
 				</div>
-				<Title className="title" label="Super Dementia Helper 2000" name="title"></Title>
+				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>
 		);
 	}
