@@ -10,10 +10,10 @@ const isEmail = (email) => {
 exports.validateLoginData = (data) => {
    let errors = {};
    if (isEmpty(data.email)) {
-	   errors.email = "Must not be empty";
+	   errors.email = "E-mail must not be empty";
    }
    if (isEmpty(data.password)) {
-	   errors.password = "Must not be  empty";
+	   errors.password = "Password must not be empty";
    }
    return {
        errors,
@@ -25,19 +25,19 @@ exports.validateSignUpData = (data) => {
 	let errors = {};
 
 	if (isEmpty(data.email)) {
-		errors.email = "Must not be empty";
+		errors.email = "E-mail must not be empty";
 	} else if (!isEmail(data.email)) {
 		errors.email = "Must be a valid email address";
 	}
 
 	if (isEmpty(data.password)) {
-		errors.password = "Must not be empty";
+		errors.password = "Password must not be empty";
 	}
 	if (data.password !== data.confirmPassword) {
 		errors.confirmPassword = "Passwords must be the same";
 	}
 	if (isEmpty(data.username)) {
-		errors.username = "Must not be empty";
+		errors.username = "Username must not be empty";
 	}
 
 	return {

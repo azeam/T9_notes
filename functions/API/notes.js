@@ -32,10 +32,7 @@ exports.getSingleNote = (request, response) => {
 		.get()
 		.then((doc) => {
 			if (!doc.exists) {
-				return response.status(404).json(
-                    { 
-                        error: 'Note not found' 
-                    });
+				return response.status(404).json({ error: "Note not found" });
             }
             if (doc.data().username !== request.user.username) {
                 return response.status(403).json({ error: "Unauthorized to read this note" })
@@ -52,11 +49,11 @@ exports.getSingleNote = (request, response) => {
 // save note
 exports.saveNewNote = (request, response) => {
 	if (request.body.body.trim() === "") {
-		return response.status(400).json({ body: "Must not be empty" });
+		return response.status(400).json({ body: "Note must not be empty" });
     }
     
     if (request.body.title.trim() === "") {
-        return response.status(400).json({ title: "Must not be empty" });
+        return response.status(400).json({ title: "Title must not be empty" });
     }
     
     const newNote = {
@@ -70,9 +67,7 @@ exports.saveNewNote = (request, response) => {
         .collection("notes")
         .add(newNote)
         .then((doc) => {
-            const responseNote = newNote;
-            responseNote.id = doc.id;
-            return response.json(responseNote);
+            response.json({ message: "Successfully saved" });
         })
         .catch((err) => {
 			response.status(500).json({ error: err.message });
