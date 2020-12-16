@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import SubmitButton from "../components/Button";
 import NoteBody from "../components/TextArea";
+import CategoryDropdown from "../components/Dropdown";
 import history from "../utils/history";
 import {logout, tokenCheck} from "../utils/handleToken";
 import Sidebar from "../components/Sidebar";
@@ -10,6 +11,7 @@ import "../components/Background.css";
 import Header from "../components/Header";
 import Title from "../components/Title";
 import MessageBox from "../components/MessageBox";
+import Input from "../components/Input";
 
 class NoteForm extends Component {
 	constructor(props) {
@@ -29,6 +31,12 @@ class NoteForm extends Component {
 
 	// update form field to set data from
 	handleChange = (event) => {
+		// also updated input field when changing dropdown
+		if (event.target.name === "categoryDropdown") {
+			this.setState({
+				category: event.target.value
+			});	
+		}
 		this.setState({
 			[event.target.name]: event.target.value
 		});
@@ -94,7 +102,6 @@ class NoteForm extends Component {
 		axios
 			.put("/notes/" + id, noteData)
 			.then((response) => {
-				console.log(response.data);
 				this.getAllNotes(); // refresh category list
 				this.setState({
 					message: Object.entries(response.data)
@@ -170,8 +177,9 @@ class NoteForm extends Component {
 			<div className="container">	
 				<Header className="header1" label="New note" name="newnote" />
 				<div className="noteForm">
-					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange}>{this.handleChange}</NoteBody>
-					<NoteBody id="category" label="Category" name="category" onChange={this.handleChange}>{this.handleChange}</NoteBody> {/*  change this to dropdown */}
+					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
+					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
+					<CategoryDropdown id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
 					<MessageBox className="message" message={this.state.message} />
 					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit} />
 					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout} />

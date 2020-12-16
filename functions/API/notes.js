@@ -67,9 +67,7 @@ exports.saveNewNote = (request, response) => {
         .collection("notes")
         .add(newNote)
         .then((doc) => {
-            const responseNote = newNote;
-            responseNote.id = doc.id;
-            return response.json(responseNote);
+            response.json({ message: "Successfully saved" });
         })
         .catch((err) => {
 			response.status(500).json({ error: err.message });
