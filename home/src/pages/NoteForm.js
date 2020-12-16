@@ -23,6 +23,7 @@ class NoteForm extends Component {
 			body: "",
 			category: "",
 			oldnote: null,
+			categoryDropdown: "",
 			message: []
 		};
 		// bind to this to be able to call local functions in axios response from child
@@ -36,6 +37,20 @@ class NoteForm extends Component {
 			this.setState({
 				category: event.target.value
 			});	
+		}
+		// if written category matches existing update dropdown
+		if (event.target.name === "category") {
+			const [note] = this.state.notes;
+			if (note.category === event.target.value) {
+				this.setState({
+					categoryDropdown: event.target.value
+				});
+			}
+			else {
+				this.setState({
+					categoryDropdown: ""
+				});
+			}
 		}
 		this.setState({
 			[event.target.name]: event.target.value
@@ -52,9 +67,14 @@ class NoteForm extends Component {
 	// set error msg to show user
 	handleError = (error) => {
 		if (error.response) {
-			this.setState({
-				message: Object.entries(error.response.data)
-			});
+			if (error.response.status === 403) { // token not (longer) valid
+				logout();
+			}
+			else {
+				this.setState({
+					message: Object.entries(error.response.data)
+				});
+			}
 		}
 		else {
 			this.setState({
@@ -156,7 +176,8 @@ class NoteForm extends Component {
 				// edit both fields
 				this.setState({
 					body: response.data.body,
-					category: response.data.category
+					category: response.data.category,
+					categoryDropdown: response.data.category
 				});
 				this.handleOld(id);
 			})
@@ -179,7 +200,7 @@ class NoteForm extends Component {
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
 					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
-					<CategoryDropdown id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
+					<CategoryDropdown value={this.state.categoryDropdown} id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
 					<MessageBox className="message" message={this.state.message} />
 					<SubmitButton className="btn btnBlue" label="SAVE" type="submit" onClick={this.handleSubmit} />
 					<SubmitButton className="btn btnBlue" label="LOGOUT" type="submit" onClick={logout} />
