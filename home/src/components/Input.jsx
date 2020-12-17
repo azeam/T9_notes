@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./Input.css";
+import './Fonts.css';
 
 class Input extends Component{
     render(){
