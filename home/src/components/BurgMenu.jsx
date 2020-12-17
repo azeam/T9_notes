@@ -47,9 +47,13 @@ class Menu extends Component{
                 allData.map((data) => {
                   return (
                     <div key={data.noteId}>
-                        <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
+                        <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.Click(); }}>
                         {data.body}
-                        </CatBtn><br></br>
+                        </CatBtn>
+                        <CatBtn label="Delete" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
+                        Delete
+                        </CatBtn>
+                        <br></br>
                         <Moment format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
                       </div>
                 )
