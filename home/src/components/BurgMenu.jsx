@@ -5,6 +5,7 @@ import { groupBy } from '../utils/grouper';
 import CatBtn from './Button';
 import HamMenu from './HamMenu';
 import Moment from 'react-moment';
+import './BurgMenu.css';
 
 
 class Menu extends Component{
@@ -40,14 +41,14 @@ class Menu extends Component{
         Object.entries(categories).map((cat) => {
           let [id, allData] = cat;
           return (
-            <div>
+            <div id="menu-outer">
             <ul key={id} > 
                   {id}<br></br>
               {
                 allData.map((data) => {
                   return (
-                    <div key={data.noteId}>
-                        <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
+                    <div id="menu-entry" key={data.noteId}>
+                        <CatBtn id="catBtn" label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
                         {data.body}
                         </CatBtn><br></br>
                         <Moment format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
