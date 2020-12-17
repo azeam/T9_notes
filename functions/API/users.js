@@ -76,7 +76,7 @@ exports.signUpUser = (request, response) => {
                 const userCredentials = {
                     username: newUser.username,
                     email: newUser.email,
-                    createdAt: new Date().toISOString(),
+                    timestamp: new Date().toISOString(),
                     userId
                 };
                 return db
