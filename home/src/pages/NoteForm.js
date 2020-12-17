@@ -24,7 +24,8 @@ class NoteForm extends Component {
 			category: "",
 			oldnote: null,
 			categoryDropdown: "",
-			message: []
+			message: [],
+			header: "New note"
 		};
 		// bind to this to call local functions in axios response from child
 		this.getSingleNote = this.getSingleNote.bind(this);
@@ -64,7 +65,8 @@ class NoteForm extends Component {
 			body: "",
 			category: "",
 			categoryDropdown: "",
-			oldnote: null
+			oldnote: null,
+			header: "New note"
 		});
 	}
 
@@ -185,7 +187,8 @@ class NoteForm extends Component {
 				this.setState({
 					body: response.data.body,
 					category: response.data.category,
-					categoryDropdown: response.data.category
+					categoryDropdown: response.data.category,
+					header: "Edit note"
 				});
 				this.handleOld(id);
 			})
@@ -204,9 +207,9 @@ class NoteForm extends Component {
 		<>
 			<div className="container">	
 			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} newNote={this.newNote}/>
-				<Header className="header1" label="New note" name="newnote" />
+				<Header className="header1" label={this.state.header} />
 				<div className="noteForm">
-					<NoteBody value={this.state.body} id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />
+					<NoteBody value={this.state.body} id="body" name="body" data={this.state.value} onChange={this.handleChange} />
 					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />
 					<CategoryDropdown value={this.state.categoryDropdown} id="categoryDropdown" name="categoryDropdown" notes={this.state.notes} onChange={this.handleChange} />
 					<MessageBox className="message" message={this.state.message} />

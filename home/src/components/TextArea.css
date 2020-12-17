@@ -10,7 +10,7 @@ textarea{
 }
 
 label{
-    font-family: "Palatino Linotype", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', monospace, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-decoration: underline rgb(68, 68, 68);
     letter-spacing: 0,47em;
     margin-top: 20px;
@@ -25,7 +25,7 @@ label{
 }
 
 #body, #category{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Courier New', monospace, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border-radius: 5px;
     cursor: text;
     background-color: rgba(238, 238, 238, 0.9);
@@ -39,18 +39,7 @@ label{
 }
 
 @media screen and (max-width: 480px) { 
-
-    /* label{
-        margin-left: 0px;
-
-    } */
-    
     textarea{
-        
         width: 95%;
-        
     }
-
-   
-
 }
