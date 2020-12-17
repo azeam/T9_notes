@@ -52,27 +52,21 @@ class Menu extends Component{
               </div>
               {
                 allData.map((data) => {
-                  return (
-
-                    <div key={data.noteId}>
-                        <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.Click(); }}>
-                        {data.body}
-                        </CatBtn>
-                    </div>
-                    <div id="menu-entry" key={data.noteId}>
+                  return (                     
+                      <div id="menu-entry" key={data.noteId}>
+                          
+                          <p className="menu-p">{data.title}</p>
                         
-                        <p className="menu-p">{data.title}</p>
-                      
-                        <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
-                        {data.body}
-                        </CatBtn><br></br>
-                        <CatBtn label="Delete" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
-                        Delete
-                        </CatBtn>
-                        <br></br>
-                        <span className="note-time">Last edited:&nbsp;</span><Moment className="note-time" format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
+                          <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.Click(); }}>
+                          {data.body}
+                          </CatBtn><br></br>
+                          <CatBtn label="Delete" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
+                          Delete
+                          </CatBtn>
+                          <br></br>
+                          <span className="note-time">Last edited:&nbsp;</span><Moment className="note-time" format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
 
-                      </div>
+                        </div>
                 )
               })
             }
