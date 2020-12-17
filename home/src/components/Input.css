@@ -1,11 +1,11 @@
 
 div label{
-    font-family:'Courier New', monospace, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Merriwheater', 'Lato', 'Langar';
     font-weight: 550;
 } 
 
 input{
-    font-family: 'Courier New', monospace, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Merriwheater', 'Lato', 'Langar';
     border-radius: 5px;
     cursor: pointer;
     background-color: rgba(238, 238, 238, 0.9);

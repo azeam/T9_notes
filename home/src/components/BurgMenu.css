@@ -19,7 +19,7 @@ nav{
     padding: 20px;
     margin-top: 0px;
     margin-bottom: 20px;
-    font-family: 'Courier New', monospace,'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Merriwheater', 'Lato', 'Langar';
     word-wrap: break-word;
 }
 
@@ -51,6 +51,15 @@ nav{
     padding-left: 20px;
 }
 
+.delete-btn{
+    margin-top: 5px;
+    font-size: 16px;
+    background:url('./imgs/bin.png') no-repeat center;
+    background-color: rgba(238, 238, 238, 0.479);
+    color: transparent;
+    padding-left: 20px;
+}
+
 nav button{
     margin-top: 30px;
     margin-bottom: 10px;
@@ -58,9 +67,10 @@ nav button{
     font-weight: 900;
 }
 
-nav .edit-btn{
+nav .edit-btn, .delete-btn{
     width: 10px;
     margin-bottom: 3px;
+    order: 1;
 }
 
 #menu-outer{
@@ -77,12 +87,14 @@ nav .edit-btn{
 #menu-inner{
     background: rgba(00, 00, 00, 0.9);
     border-radius: 5px;
-    width: 97.0%;
+    width: 100%;
     margin-top: 20px;
     margin-bottom: 10px;
     padding-top:5px;
     padding-bottom: 5px;
-    border: solid white 4px;
+    border: solid white 1px;
+    box-shadow: 0px 3px red, 0px -2px red;
+    
 }
 
 #menu-entry{
@@ -95,6 +107,7 @@ nav .edit-btn{
     border: solid white 1px;
     padding-top:20px;
     padding-bottom: 10px;
+    box-shadow: 0px 3px green, 0px -2px green;
 }
 
 .note-time{

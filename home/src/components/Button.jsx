@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Button.css';
+import './Fonts.css';
 
 class Button extends Component {
     render(){

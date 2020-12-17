@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './TextArea.css'; 
+import './Fonts.css';
 
 class TextArea extends Component{
     render(){
