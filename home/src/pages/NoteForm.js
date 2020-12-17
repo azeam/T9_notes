@@ -13,6 +13,10 @@ import Title from "../components/Title";
 import MessageBox from "../components/MessageBox";
 import Input from "../components/Input";
 
+const arrayContains = (array, item) => array.filter(function(note) {
+	return note.category === item
+}).length > 0; // needs length check to return boolean value, this is when JS is not funny
+
 class NoteForm extends Component {
 	constructor(props) {
 		super(props);
@@ -43,8 +47,7 @@ class NoteForm extends Component {
 		}
 		// update dropdown if written category matches existing
 		if (event.target.name === "category") {
-			const [note] = this.state.notes;
-			if (note && note.category === event.target.value) {
+			if (arrayContains(this.state.notes, event.target.value)) {
 				this.setState({
 					categoryDropdown: event.target.value
 				});
