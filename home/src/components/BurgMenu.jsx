@@ -33,7 +33,7 @@ class Menu extends Component{
       return(
         <div>
           <p className="menu-p">{data.title}</p>
-          <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.props.setOpen(false); }}>
+          <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.props.setOpen(false); }}>
           {data.body}
           </CatBtn>
           <CatBtn className="delete-btn btn" label="E" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
