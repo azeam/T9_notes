@@ -1,7 +1,7 @@
 .container{
-    display: grid;
-    grid-template-columns: 300px;
-    justify-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -9,24 +9,45 @@
     letter-spacing: 0.27em;
 }
 .noteForm{
-    margin-left: 350px;
     width: fit-content;
     height: auto;
     align-self: center;
     justify-self: center;
 }
 .ham-menu{
-    width: 150px;
+    width: 250px;
     height: auto;
+}
+#main-menu{
+
+    position: relative;
+  /*
+    top: 320px;
+    left: -230px; */
+    top: -10px;
+    left: 150px;
 }
 .oldNotes{
     width: 0px;
     height: 0px;
 }
 
+#category{
+    width: 95%;
+}
+
+#categoryDropdown{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    width: 120px;
+    background-color: rgba(238, 238, 238, 0.479);
+    color: var(--dark);
+    border: 1px solid var(--primary);
+}
 
 @media screen and (min-width: 350px) {
-    /* Styles go here */
     .header1 {
         margin-left: 0px;
         margin-right: 0px;
@@ -44,3 +65,30 @@
         margin-left: 10px;
     }
 }
+/* 
+@media screen and (max-width: 550px) { 
+    #main-menu{
+        position: fixed;
+        top: 10px;
+        left: 400px;
+    }
+
+}
+*/
+@media screen and (max-width: 440px) { 
+    #main-menu{
+        position: fixed;
+        top: 10px;
+        left: 330px;
+    }
+
+}
+
+@media screen and (max-width: 370px) { 
+    #main-menu{
+        position: fixed;
+        top: 10px;
+        left: 280px;
+    }
+
+} 

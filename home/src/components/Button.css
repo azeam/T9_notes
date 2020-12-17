@@ -24,22 +24,27 @@
     transform: translateY(2px);
 }
 
-#btnlogin{
+.btn:active{
+    background-color: orangered;
+}
+
+
+#btn-login{
     background:url('./imgs/lock.png') no-repeat left center;
     padding-left:20px;
 }
 
-#btnsignup{
+#btn-signup{
     background:url('./imgs/checkmark.png') no-repeat left center;
     padding-left:20px;
 }
 
-#btnnote{
+#btn-note{
     background:url('./imgs/document.png') no-repeat left center;
     padding-left:20px;
 }
 
-#btnlogout{
+#btn-logout{
     background:url('./imgs/cross.png') no-repeat left center;
     padding-left:20px;
 }

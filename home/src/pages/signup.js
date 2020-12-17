@@ -63,18 +63,20 @@ class signup extends Component {
 		return (
 			<>
 				<div className="container">
+					<Header className="header1" label="Sign up" name="signup" />
 					<form className="signup">
 						<SignupInput type="text" id="username" label="Username" name="username" onChange={this.handleChange} />
 						<SignupInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange} />
 						<SignupInput type="password" id="password" label="Password" name="password" onChange={this.handleChange} />
 						<SignupInput type="password" id="confirmPassword" label="Confirm password" name="confirmPassword" onChange={this.handleChange} />
 						<MessageBox className="message" message={this.state.message} />
-						<SubmitButton id="btnsignup" className="btn" label="SEND" type="submit" onClick={this.handleSubmit} />						
+						<SubmitButton id="btn-signup" className="btn" label="SEND" type="submit" onClick={this.handleSubmit} />						
 					</form>
-					<Link to={location => ({ ...location, pathname: "/login" })}>
-						Log in	
-					</Link>
-					<Header className="header1" label="Sign up" name="signup" />
+					<p>Already have account? Back to&nbsp;
+						<Link className="links" to={location => ({ ...location, pathname: "/login" })}>
+							Log in	
+						</Link>
+					</p>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>

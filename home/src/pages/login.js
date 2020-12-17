@@ -67,16 +67,18 @@ class login extends Component {
 		return (
 			<>
 				<div className="container">
+					<Header className="header1" label="Log in" name="login" />
 					<form className="login">
 						<LoginInput type="email" id="email" label="E-mail" name="email" onChange={this.handleChange} />
 						<LoginInput type="password" id="password" label="Password" name="password" onChange={this.handleChange} />
 						<MessageBox className="message" message={this.state.message} />
-						<SubmitButton id="btnlogin" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit} />
+						<SubmitButton id="btn-login" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit} />
 					</form>
-					<Link to={location => ({ ...location, pathname: "/signup" })}>
-						Sign up	
-					</Link>
-					<Header className="header1" label="Log in" name="login" />
+					<p>Not a member?&nbsp;
+						<Link className="links" to={location => ({ ...location, pathname: "/signup" })}>
+							Sign up	here
+						</Link>
+					</p>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>
