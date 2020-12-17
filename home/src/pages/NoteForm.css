@@ -20,9 +20,13 @@
     height: auto;
 }
 #main-menu{
-    position: fixed;
-    top: 150px;
-    right: 100px;
+
+    position: relative;
+  /*
+    top: 320px;
+    left: -230px; */
+    top: -10px;
+    left: 150px;
 }
 .oldNotes{
     width: 0px;
@@ -62,7 +66,7 @@
         margin-left: 10px;
     }
 }
-
+/* 
 @media screen and (max-width: 550px) { 
     #main-menu{
         position: fixed;
@@ -71,7 +75,7 @@
     }
 
 }
-
+*/
 @media screen and (max-width: 440px) { 
     #main-menu{
         position: fixed;
@@ -88,4 +92,4 @@
         left: 280px;
     }
 
-}
+} 

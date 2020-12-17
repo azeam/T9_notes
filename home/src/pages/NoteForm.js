@@ -194,8 +194,8 @@ class NoteForm extends Component {
     render() {
 		return (
 		<>
-			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} />
 			<div className="container">	
+			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} />
 				<Header className="header1" label="New note" name="newnote" />
 				<div className="noteForm">
 					<NoteBody id="body" label="New note" name="body" data={this.state.value} onChange={this.handleChange} />

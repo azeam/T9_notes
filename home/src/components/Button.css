@@ -25,6 +25,11 @@
     transform: translateY(2px);
 }
 
+.btn:active{
+    background-color: orangered;
+}
+
+
 #btn-login{
     background:url('./imgs/lock.png') no-repeat left center;
     padding-left:20px;

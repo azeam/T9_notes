@@ -74,9 +74,11 @@ class login extends Component {
 						<MessageBox className="message" message={this.state.message} />
 						<SubmitButton id="btn-login" className="btn" label="LOGIN" type="submit" onClick={this.handleSubmit} />
 					</form>
-					<Link to={location => ({ ...location, pathname: "/signup" })}>
-						Sign up	
-					</Link>
+					<p>Not a member?&nbsp;
+						<Link className="links" to={location => ({ ...location, pathname: "/signup" })}>
+							Sign up	here
+						</Link>
+					</p>
 				</div>
 				<Title className="title" label="Super Dementia Helper 2000" name="title" />
 			</>
