@@ -6,6 +6,7 @@ import CatBtn from './Button';
 import HamMenu from './HamMenu';
 import Moment from 'react-moment';
 import './BurgMenu.css';
+import './Fonts.css';
 
 
 class Menu extends Component{
@@ -59,8 +60,8 @@ class Menu extends Component{
                         
                           <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.Click(); }}>
                           {data.body}
-                          </CatBtn><br></br>
-                          <CatBtn label="Delete" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
+                          </CatBtn>&nbsp;&nbsp;
+                          <CatBtn className="delete-btn btn" label="E" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
                           Delete
                           </CatBtn>
                           <br></br>
