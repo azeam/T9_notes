@@ -91,6 +91,18 @@ class NoteForm extends Component {
 		}
 	}
 
+	// show api response for 3 seconds
+	handleMessage = (message) => {
+		this.setState({
+			message: Object.entries(message)
+		});
+		setTimeout(() => {
+			this.setState({
+			  message: []
+			});
+		}, 3000)
+	}
+
 	// get all notes by user
 	getAllNotes = () => {
 		if (!tokenCheck(history)) { // check if token exists
@@ -120,10 +132,8 @@ class NoteForm extends Component {
 			data: noteData
 		})
 		.then((response) => {
-			this.getAllNotes(); // refresh category list			
-			this.setState({
-				message: Object.entries(response.data) // api response
-			});
+			this.getAllNotes(); // refresh category list
+			this.handleMessage(response.data);			
 			if (this.state.action === "save") {
 				this.newNote();
 			}
