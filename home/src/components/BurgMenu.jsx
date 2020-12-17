@@ -4,6 +4,8 @@ import { StyledMenu } from './BurgMenu.style';
 import { groupBy } from '../utils/grouper';
 import CatBtn from './Button';
 import Moment from 'react-moment';
+import './BurgMenu.css';
+import './Fonts.css';
 
 
 class Menu extends Component{
@@ -30,10 +32,15 @@ class Menu extends Component{
     {
       return(
         <div>
-          <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.props.setOpen(false); }}>
+          <p className="menu-p">{data.title}</p>
+          <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.props.setOpen(false); }}>
           {data.body}
-          </CatBtn><br></br>
-          <Moment format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
+          </CatBtn>
+          <CatBtn className="delete-btn btn" label="E" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
+            Delete
+          </CatBtn>
+          <br></br>
+          <span className="note-time">Last edited:&nbsp;</span><Moment className="note-time" format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
         </div>
       )
     }
@@ -48,18 +55,25 @@ class Menu extends Component{
     
     return (
       <StyledMenu open={this.props.open} aria-hidden={!isHidden} {...this.props}>
-        <CatBtn label="New Note" onClick={() => { this.props.newNote(); this.props.setOpen(false); }}></CatBtn>
+      <div id="menu-btn-back"> 
+        <div id="menu-btn-foreground">
+          <CatBtn className="btn" id="new-note-btn" label="New Note" onClick={() => { this.props.newNote(); this.props.setOpen(false); }}></CatBtn>
+        </div>
+      </div> 
       {
         Object.entries(categories).map((cat) => {
           let [id, allData] = cat;
           return (
-            <div>
+            <div id="menu-outer">
               <ul key={id} onClick={() => this.filterById(id)}> 
-                {id}<br></br>
+                <div id="menu-inner">
+                  <p id="category-name" className="menu-p" >{id}</p>
+                </div>
                 {
                   allData.map((data) => {
                     return (
-                      <div key={data.noteId}>  
+                      <div id="menu-entry" key={data.noteId}>  
+                        
                         {this.renderCatButtons(data, filteredCategory)}
                       </div>
                     )

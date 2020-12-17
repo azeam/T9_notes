@@ -8,13 +8,13 @@ class Dropdown extends Component{
         return(
             <>
                 <select value={this.props.value} name={this.props.name} id={this.props.id} onChange={this.props.onChange}>
-                <option value="" selected disabled hidden>Select category</option>
+                <option value="" disabled hidden>Select category</option>
                 {
                     Object.entries(categories).map((cat) => {
 						let [id] = cat;
 						return (
 							<option key={id}>{id}</option>
-						  )
+                        )
                     })
                 }
                 </select><br />

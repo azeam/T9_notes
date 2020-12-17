@@ -37,11 +37,11 @@
 }
 
 #categoryDropdown{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Merriwheater', 'Lato', 'Langar';
     font-weight: 400;
     border-radius: 5px;
     margin-bottom: 30px;
-    width: 120px;
+    width: 150px;
     background-color: rgba(238, 238, 238, 0.479);
     color: var(--dark);
     border: 1px solid var(--primary);

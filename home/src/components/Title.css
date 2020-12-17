@@ -2,8 +2,8 @@
     margin-left: 20px;
     margin-top: 50px;
     order:0;
-    font-size: 7vw;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 5vw;
+    font-family:'Merriwheater', 'Lato', 'Langar';
     font-weight: 350;
     text-shadow: 1px 1px 1px black;
     text-decoration: underline;
@@ -15,7 +15,7 @@
 }
 
 /* For links to sign up and login page */
-.container p{
+.link-text{
     margin-top: 40px;
     line-height: 2;
     text-align: center;
