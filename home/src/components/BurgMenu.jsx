@@ -38,7 +38,7 @@ class Menu extends Component{
       <StyledMenu open={this.props.open} aria-hidden={!isHidden} {...this.props}>
       <div id="menu-btn-back"> 
         <div id="menu-btn-foreground">
-        <CatBtn className="btn" id="new-note-btn" label="New Note" onClick={() => { this.props.newNote(); this.Click(); }}></CatBtn>
+          <CatBtn className="btn" id="new-note-btn" label="New Note" onClick={() => { this.props.newNote(); this.Click(); }}></CatBtn>
         </div>
       </div> 
       {
@@ -53,7 +53,12 @@ class Menu extends Component{
               {
                 allData.map((data) => {
                   return (
-                    
+
+                    <div key={data.noteId}>
+                        <CatBtn label={data.title} key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.Click(); }}>
+                        {data.body}
+                        </CatBtn>
+                    </div>
                     <div id="menu-entry" key={data.noteId}>
                         
                         <p className="menu-p">{data.title}</p>
@@ -61,7 +66,12 @@ class Menu extends Component{
                         <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.getSingleNote(data.noteId); this.Click(); }}>
                         {data.body}
                         </CatBtn><br></br>
+                        <CatBtn label="Delete" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
+                        Delete
+                        </CatBtn>
+                        <br></br>
                         <span className="note-time">Last edited:&nbsp;</span><Moment className="note-time" format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
+
                       </div>
                 )
               })

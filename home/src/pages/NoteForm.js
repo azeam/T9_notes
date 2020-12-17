@@ -25,10 +25,11 @@ class NoteForm extends Component {
 			oldnote: null,
 			categoryDropdown: "",
 			message: [],
+			action: "save",
 			header: "New note"
 		};
 		// bind to this to call local functions in axios response from child
-		this.getSingleNote = this.getSingleNote.bind(this);
+		this.handleSingleNote = this.handleSingleNote.bind(this);
 		this.newNote = this.newNote.bind(this);
 	}
 
@@ -40,7 +41,7 @@ class NoteForm extends Component {
 				category: event.target.value
 			});	
 		}
-		// if written category matches existing update dropdown
+		// update dropdown if written category matches existing
 		if (event.target.name === "category") {
 			const [note] = this.state.notes;
 			if (note && note.category === event.target.value) {
@@ -66,16 +67,10 @@ class NoteForm extends Component {
 			category: "",
 			categoryDropdown: "",
 			oldnote: null,
+			action: "save",
 			header: "New note"
 		});
 	}
-
-	// get old note id from child after selecting a note to edit (or set to null when making a new)
-	handleOld = (id) => {
-		this.setState({
-			oldnote: id
-		});
-	};
 
 	// set error msg to show user
 	handleError = (error) => {
@@ -115,37 +110,30 @@ class NoteForm extends Component {
 			});
 	}
 
-	// save as new note
-	saveNewNote = (noteData) => {
-		axios
-			.post("/notes", noteData)
-			.then((response) => {
-				this.getAllNotes(); // refresh category list			
-				this.setState({
-					message: Object.entries(response.data)
-				});
-			})
-			.catch((error) => {
-				this.handleError(error);
+	// save/edit/delete note compacted as single function
+	changeNote = (noteData, id) => {
+		const authToken = localStorage.getItem("AuthToken");
+		axios.defaults.headers.common = { Authorization: `${authToken}` };
+		axios({
+			method: this.state.action === "save" ? "POST" : this.state.action === "edit" ? "PUT" : "DELETE",
+			url: this.state.action === "save" ? "/notes" : "/notes/" + id,
+			data: noteData
+		})
+		.then((response) => {
+			this.getAllNotes(); // refresh category list			
+			this.setState({
+				message: Object.entries(response.data) // api response
 			});
-	}
-
-	// update note data
-	editNote = (noteData, id) => {
-		axios
-			.put("/notes/" + id, noteData)
-			.then((response) => {
-				this.getAllNotes(); // refresh category list
-				this.setState({
-					message: Object.entries(response.data)
-				});
-			})
-			.catch((error) => {
-				this.handleError(error);
-			});
+			if (this.state.action === "save") {
+				this.newNote();
+			}
+		})
+		.catch((error) => {
+			this.handleError(error);
+		});
 	}
 	
-	// on form submit (save)
+	// handle form submit
 	handleSubmit = (event) => {
 		event.preventDefault(); // handle form with js
 		if (!tokenCheck(history)) { // check if token exists
@@ -159,42 +147,49 @@ class NoteForm extends Component {
 			body: this.state.body,
 			category: this.state.category
 		};
-		
-		const authToken = localStorage.getItem("AuthToken");
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
 
 		// if olddata is null save as new, otherwise use id to update
-		if (this.state.oldnote === null) {
-			this.saveNewNote(noteData);
-		}
-		else {
-			this.editNote(noteData, this.state.oldnote);
-		}
+		this.changeNote(noteData, this.state.oldnote);
 	};
 
-	// open single note for editing/reading
-	getSingleNote(id) {
-        if (!tokenCheck(history)) { // check if token exists
-            logout();
-		} 
+	// get note from db and display in form
+	getSingleNote = (id) => {
+		if (!tokenCheck(history)) { // check if token exists
+			logout();
+		}
 		const authToken = localStorage.getItem("AuthToken");
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
 			.get("/notes/" + id)
 			.then((response) => {
-				// also save to local variable because field will not update (handleChange) if user does not
-				// edit both fields
 				this.setState({
 					body: response.data.body,
 					category: response.data.category,
 					categoryDropdown: response.data.category,
+					oldnote: id,
+					action: "edit",
 					header: "Edit note"
 				});
-				this.handleOld(id);
 			})
 			.catch((error) => {
 				this.handleError(error);
 			});
+	}
+
+	// handle single note action
+	handleSingleNote = (id, action) => {
+		if (action === "delete") {
+			this.setState({
+				oldnote: id,
+				action: "delete"
+			}, () => {
+				// needs to wait for state to update
+				this.changeNote(null, id);
+			});
+		}
+		else {
+			this.getSingleNote(id);
+		}
 	}
 	
 	// will only call on first render
@@ -206,8 +201,9 @@ class NoteForm extends Component {
 		return (
 		<>
 			<div className="container">	
-			<Sidebar className="ham-menu" getSingleNote={this.getSingleNote} notes={this.state.notes} newNote={this.newNote}/>
-				<Header className="header1" label={this.state.header} />
+
+			<Sidebar className="ham-menu" handleSingleNote={this.handleSingleNote} notes={this.state.notes} newNote={this.newNote}/>
+				<Header className="header1" label={this.state.header} name="newnote" />
 				<div className="noteForm">
 					<NoteBody value={this.state.body} id="body" name="body" data={this.state.value} onChange={this.handleChange} />
 					<Input value={this.state.category} id="category" label="Category" name="category" onChange={this.handleChange} />

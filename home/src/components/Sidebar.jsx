@@ -14,7 +14,7 @@ function Sidebar(props) {
   return (
       <>
         <div ref={node}>
-            <Burger notes={props.notes} getSingleNote={props.getSingleNote} newNote={props.newNote} open={open} setOpen={setOpen} aria-controls={menuId} />
+            <Burger notes={props.notes} handleSingleNote={props.handleSingleNote} newNote={props.newNote} open={open} setOpen={setOpen} aria-controls={menuId} />
             <HamMenu open={open} setOpen={setOpen} id={menuId} />
         </div>
       </>
