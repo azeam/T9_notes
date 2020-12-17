@@ -1,6 +1,7 @@
 import React from 'react';
 import { bool, func } from 'prop-types';
 import { StyledBurger } from './HamMenu.Style';
+import './HamMenu.css';
 
 const Burger = ({ open, setOpen, ...props }) => {
   
@@ -8,9 +9,9 @@ const Burger = ({ open, setOpen, ...props }) => {
   
   return (
     <StyledBurger aria-label="Toggle menu" aria-expanded={isExpanded} open={open} onClick={() => setOpen(!open)} {...props}>
-      <span />
-      <span />
-      <span />
+      <span/>
+      <span id="span2"/>
+      <span/>
     </StyledBurger>
   )
 }

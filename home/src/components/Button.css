@@ -10,14 +10,15 @@
     font-weight: 400;
     border-radius: 10px;
     margin-top: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
     width: 70px;
     cursor: pointer;
     transition: transform 0.3s ease;
     background-color: rgba(238, 238, 238, 0.479);
     color: var(--dark);
     border: 2px solid var(--primary);
+
 }
 
 .btn:hover{
