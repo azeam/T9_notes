@@ -20,8 +20,8 @@ exports.getAllNotes = (request, response) => {
 			});
 			return response.json(notes);
 		})
-		.catch((err) => {
-			return response.status(500).json({ error: err.message });
+		.catch((error) => {
+			return response.status(500).json({ error: error.message });
 		});
 };
 
@@ -41,7 +41,7 @@ exports.getSingleNote = (request, response) => {
 			NoteData.noteId = doc.id;
 			return response.json(NoteData);
 		})
-		.catch((err) => {
+		.catch((error) => {
 			return response.status(500).json({ error: error.message });
 		});
 };
@@ -49,11 +49,11 @@ exports.getSingleNote = (request, response) => {
 // save note
 exports.saveNewNote = (request, response) => {
 	if (request.body.body.trim() === "") {
-		return response.status(400).json({ body: "Note must not be empty" });
+		return response.status(400).json({ error: "Note must not be empty" });
     }
     
     if (request.body.title.trim() === "") {
-        return response.status(400).json({ title: "Title must not be empty" });
+        return response.status(400).json({ error: "Title must not be empty" });
     }
     
     const newNote = {
@@ -69,8 +69,8 @@ exports.saveNewNote = (request, response) => {
         .then((doc) => {
             response.json({ message: "Successfully saved" });
         })
-        .catch((err) => {
-			response.status(500).json({ error: err.message });
+        .catch((error) => {
+			response.status(500).json({ error: error.message });
 		});
 };
 
@@ -90,8 +90,8 @@ exports.deleteNote = (request, response) => {
                 response.json({ message: "Successfully deleted" });
             }
         })
-        .catch((err) => {
-            response.status(500).json({ error: err.message });
+        .catch((error) => {
+            response.status(500).json({ error: error.message });
         });
 };
 
@@ -99,7 +99,7 @@ exports.deleteNote = (request, response) => {
 exports.editNote = (request, response) => { 
     // disallow edit of id and date
     if (request.body.noteId || request.body.timestamp) {
-        return response.status(403).json({ message: "Not allowed to edit" });
+        return response.status(403).json({ error: "Not allowed to edit" });
     }
     request.body.timestamp = new Date().toISOString();
     // update note with id noteId
@@ -117,7 +117,7 @@ exports.editNote = (request, response) => {
                 response.json({ message: "Successfully updated" });
             }
         })
-        .catch((err) => {
-            response.status(500).json({ error: err.message });
+        .catch((error) => {
+            response.status(500).json({ error: error.message });
         });
 };
