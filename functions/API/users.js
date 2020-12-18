@@ -26,8 +26,8 @@ exports.loginUser = (request, response) => {
         .then((token) => {
             return response.json({ token });
         })
-        .catch((err) => {
-            return response.status(403).json({ error: err.message });		
+        .catch((error) => {
+            return response.status(403).json({ error: error.message });		
         })
 };
 
@@ -46,7 +46,7 @@ exports.signUpUser = (request, response) => {
         return response.status(400).json(errors);
     }
 
-    let token, userId;
+    let userId;
     let keepOn = true; 
     db
         .doc(`/users/${newUser.username}`)
@@ -54,7 +54,7 @@ exports.signUpUser = (request, response) => {
         .then((doc) => {
             if (doc.exists) {
                 keepOn = false; // stop the thens on error to prevent Unhandled Promise, probably not the "correct" way to handle this...
-                return response.status(400).json({ username: "This username is already taken" });
+                return response.status(400).json({ message: "This username is already taken" });
             } else {
                 return firebase
                         .auth()
@@ -70,9 +70,8 @@ exports.signUpUser = (request, response) => {
                 return data.user.getIdToken();
             }
         })
-        .then((idtoken) => {
+        .then(() => {
             if (keepOn) {
-                token = idtoken;
                 const userCredentials = {
                     username: newUser.username,
                     email: newUser.email,
@@ -89,7 +88,7 @@ exports.signUpUser = (request, response) => {
                 return response.status(201).json({ message: "User signed up, you can now log in." });
             }
         })
-        .catch((err) => {
-            return response.status(500).json({ error: err.message });		
+        .catch((error) => {
+            return response.status(500).json({ error: error.message });		
 		});
 }
