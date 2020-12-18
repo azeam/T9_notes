@@ -31,7 +31,7 @@ class Menu extends Component{
     if(data.category === filteredCategory[0].category)
     {
       return(
-        <div>
+        <div key={"render" + data.noteId}>
           <p className="menu-p">{data.title}</p>
           <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.props.setOpen(false); }}>
           {data.body}
@@ -64,7 +64,7 @@ class Menu extends Component{
         Object.entries(categories).map((cat) => {
           let [id, allData] = cat;
           return (
-            <div id="menu-outer">
+            <div id="menu-outer" key={"menu-outer" + id}>
               <ul key={id} onClick={() => this.filterById(id)}> 
                 <div id="menu-inner">
                   <p id="category-name" className="menu-p" >{id}</p>
@@ -72,7 +72,7 @@ class Menu extends Component{
                 {
                   allData.map((data) => {
                     return (
-                      <div id="menu-entry" key={data.noteId}>  
+                      <div id="menu-entry" key={"menu-entry" + data.noteId}>  
                         
                         {this.renderCatButtons(data, filteredCategory)}
                       </div>
