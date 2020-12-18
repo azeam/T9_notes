@@ -31,16 +31,16 @@ class Menu extends Component{
     if(data.category === filteredCategory[0].category)
     {
       return(
-        <div>
+        <div id="open-note">
           <p className="menu-p">{data.title}</p>
+          <span className="note-time">Last edited:&nbsp;</span><Moment className="note-time" format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
+          <br/>
           <CatBtn className="edit-btn btn" id="catBtn" label="E" key={"btn" + data.noteId} id={data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "edit"); this.props.setOpen(false); }}>
           {data.body}
-          </CatBtn>
+          </CatBtn>&nbsp;&nbsp;&nbsp;
           <CatBtn className="delete-btn btn" label="E" key={"delBtn" + data.noteId} id={"delBtn" + data.noteId} onClick={() => { this.props.handleSingleNote(data.noteId, "delete") }}>
             Delete
           </CatBtn>
-          <br></br>
-          <span className="note-time">Last edited:&nbsp;</span><Moment className="note-time" format="DD MMM YYYY, HH:mm:ss">{data.timestamp}</Moment>
         </div>
       )
     }

@@ -23,22 +23,22 @@
 
 .links{
     text-decoration: none;
-    color: lightblue;
+    color: blue;
 }
   
   /* visited link */
 .links:visited {
-    color: darkblue;
+    color: lightblue;
 }
   
   /* mouse over link */
 .links:hover {
-    color: red;
+    color: purple;
 }
   
   /* selected link */
 .links:active {
-    color: blue;
+    color: red;
 }
 
 @media screen and (max-width: 320px) {
