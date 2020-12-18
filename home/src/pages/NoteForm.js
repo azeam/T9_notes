@@ -13,6 +13,10 @@ import Title from "../components/Title";
 import MessageBox from "../components/MessageBox";
 import Input from "../components/Input";
 
+const arrayContains = (array, item) => array.filter(function(note) {
+	return note.category === item
+}); 
+
 class NoteForm extends Component {
 	constructor(props) {
 		super(props);
@@ -43,8 +47,7 @@ class NoteForm extends Component {
 		}
 		// update dropdown if written category matches existing
 		if (event.target.name === "category") {
-			const [note] = this.state.notes;
-			if (note && note.category === event.target.value) {
+			if (arrayContains(this.state.notes, event.target.value).length > 0) { // not returning a bool, needs length check, gotta love JS sometimes...
 				this.setState({
 					categoryDropdown: event.target.value
 				});
@@ -91,6 +94,18 @@ class NoteForm extends Component {
 		}
 	}
 
+	// show api response for 3 seconds
+	handleMessage = (message) => {
+		this.setState({
+			message: Object.entries(message)
+		});
+		setTimeout(() => {
+			this.setState({
+			  message: []
+			});
+		}, 3000)
+	}
+
 	// get all notes by user
 	getAllNotes = () => {
 		if (!tokenCheck(history)) { // check if token exists
@@ -112,6 +127,9 @@ class NoteForm extends Component {
 
 	// save/edit/delete note compacted as single function
 	changeNote = (noteData, id) => {
+		if (!tokenCheck(history)) {
+			return;
+		}
 		const authToken = localStorage.getItem("AuthToken");
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios({
@@ -120,12 +138,10 @@ class NoteForm extends Component {
 			data: noteData
 		})
 		.then((response) => {
-			this.getAllNotes(); // refresh category list			
-			this.setState({
-				message: Object.entries(response.data) // api response
-			});
+			this.getAllNotes(); // refresh category list
+			this.handleMessage(response.data);			
 			if (this.state.action === "save") {
-				this.newNote();
+				this.newNote(); // reset form after saving new note, not after edit or delete
 			}
 		})
 		.catch((error) => {
@@ -136,9 +152,6 @@ class NoteForm extends Component {
 	// handle form submit
 	handleSubmit = (event) => {
 		event.preventDefault(); // handle form with js
-		if (!tokenCheck(history)) { // check if token exists
-			return;
-		}
         if (this.state.body.length > 0) {
 			var bodyTitle = this.state.body.split("\n", 1)[0];
         }
@@ -147,8 +160,6 @@ class NoteForm extends Component {
 			body: this.state.body,
 			category: this.state.category
 		};
-
-		// if olddata is null save as new, otherwise use id to update
 		this.changeNote(noteData, this.state.oldnote);
 	};
 
