@@ -5,47 +5,73 @@
     --white: #FFF;
 }
 
+/* All buttons */
 .btn {
     font-family:'Merriwheater', 'Lato', 'Langar';
     font-weight: 600;
     border-radius: 10px;
     margin-top: 10px;
-    margin-left: 0 auto;
-    margin-right: 0 auto;
+    margin-right: 10px;
+    margin-left: 10px;
     padding-top: 3px;
     padding-bottom: 3px;
-    width: 70px;
+    width: 80px;
     cursor: pointer;
     transition: transform 0.3s ease;
     background-color: rgba(238, 238, 238, 0.479);
     border: 1px solid var(blue);
 }
-
 .btn:hover{
-    transform: translateY(2px);
+    transform: translateY(1px);
 }
-
 .btn:active{
     background-color: orangered;
 }
 
-
+/* Icons for buttons */
 #btn-login{
     background:url('./imgs/lock.png') no-repeat left center;
     padding-left:20px;
 }
-
 #btn-signup{
     background:url('./imgs/checkmark.png') no-repeat left center;
     padding-left:20px;
 }
-
 #btn-note{
     background:url('./imgs/document.png') no-repeat left center;
     padding-left:20px;
 }
-
 #btn-logout{
     background:url('./imgs/cross.png') no-repeat left center;
     padding-left:20px;
+}
+
+/* Buttons on new note drop down menu */
+.edit-btn{
+    font-size: 16px;
+    background:url('./imgs/pen.png') no-repeat center;
+    background-color: rgba(238, 238, 238, 0.479);
+    color: transparent;
+    padding-left: 20px;
+    order: 2;
+    margin-right: 5px;
+}
+.delete-btn{
+    font-size: 16px;
+    background:url('./imgs/bin.png') no-repeat center;
+    background-color: rgba(238, 238, 238, 0.479);
+    color: transparent;
+    padding-left: 20px;
+    order: 2;
+    margin-left: 5px;
+}
+nav button{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 900;
+}
+nav .edit-btn, .delete-btn{
+    width: 10px;
+    margin-bottom: 3px;
 }

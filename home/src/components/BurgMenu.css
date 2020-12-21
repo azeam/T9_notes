@@ -1,12 +1,10 @@
-nav{
+nav{ /* container for whole sidebar */
     text-align: center;
     width: 230px;
     justify-content: center;
     align-items: center;
 }
-
-
-.menu-p{
+.menu-p{ /* p elements of sidebar */
     background-color: white;
     color: black;
     padding-bottom: 20px;
@@ -17,11 +15,9 @@ nav{
     word-wrap: break-word;
     order: 0;
 }
-
-
-#category-name{
+#category-name{ /* Clickable category labels */
     font-size: 17px;
-    font-weight: 700;
+    font-weight: 450;
     text-transform: capitalize;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -30,48 +26,16 @@ nav{
     background-color: transparent;
     text-decoration: underline;
     text-shadow: 1px 1px rgb(102, 4, 4);
+    width: 100%;
 }
-
-#menu-outer ul{
+#menu-outer ul{ /* Container for each category and associated note entries */
     margin: 0 auto;
     padding-left: 0px;
     width: 200px;
     display: inline-block;
     list-style-type: none;
 } 
-
-.edit-btn{
-    font-size: 16px;
-    background:url('./imgs/pen.png') no-repeat center;
-    background-color: rgba(238, 238, 238, 0.479);
-    color: transparent;
-    padding-left: 20px;
-    order: 2;
-}
-
-.delete-btn{
-    font-size: 16px;
-    background:url('./imgs/bin.png') no-repeat center;
-    background-color: rgba(238, 238, 238, 0.479);
-    color: transparent;
-    padding-left: 20px;
-    order: 2;
-    
-}
-
-nav button{
-    margin-top: 30px;
-    margin-bottom: 10px;
-    font-size: 15px;
-    font-weight: 900;
-}
-
-nav .edit-btn, .delete-btn{
-    width: 10px;
-    margin-bottom: 3px;
-}
-
-#menu-outer{
+#menu-outer{/*  Surrounding div for each ul containing category and saved notes */
     display: flex;
     text-align: center;
     width: 100%;
@@ -81,11 +45,10 @@ nav .edit-btn, .delete-btn{
     margin-bottom: 20px;
     padding:10px;
 }
-
-#menu-inner{
+#menu-inner{ /* Container for category only */
     background: rgba(00, 00, 00, 0.9);
     border-radius: 5px;
-    width: 100%;
+    width: 98.5%;
     margin-top: 20px;
     margin-bottom: 10px;
     padding-top:5px;
@@ -94,12 +57,11 @@ nav .edit-btn, .delete-btn{
     box-shadow: 0px 3px red, 0px -2px red;
     
 }
-
 #menu-inner:hover{
     cursor: pointer;
     background: cadetblue;
 }
-#menu-entry{
+#menu-entry{ /* Container for each individual saved note */
     text-align: center;
     margin: 0 auto;
     margin-bottom: 20px;
@@ -112,21 +74,19 @@ nav .edit-btn, .delete-btn{
     box-shadow: 0px 3px green, 0px -2px green;
     box-sizing: border-box;
 }
-
-ul #menu-entry #open-note{
+ul #menu-entry #open-note{ /* open-note is div surrounding each saved note that is visible when category is opened in menu */
     display: block;
     margin: 0 auto;
     width: 100%;
 }
-.note-time{
+.note-time{ /* Timestamp on each note */
     color: rgb(216, 216, 216);
     font-size: 10px;
     margin: 0px;
     padding: 0px;
     order: 0;
 }
-
-#menu-btn-back{
+#newNote-btn-back{ /* Background container for new note button in menu */
     width: 200px;
     background: rgba(00, 00, 00, 0.9);
     border-radius: 5px;
@@ -134,8 +94,7 @@ ul #menu-entry #open-note{
     margin: 20px;
     margin-bottom: 10px;
 }
-
-#menu-btn-foreground{
+#newNote-btn-foreground{ /* Foreground container for new note button in menu */
     background: rgba(00, 00, 00, 0.9);
     border-radius: 5px;
     border: solid white 1px;
@@ -143,12 +102,11 @@ ul #menu-entry #open-note{
 }
 
 @media screen and (max-width: 350px) {
-    #menu-btn-back{
+    #newNote-btn-back{
         padding-top: 5px;
         padding-bottom: 5px;
         width: 140px;
     }
-    
     #menu-inner{
         margin-top: 0px;
         margin-bottom: 10px;
@@ -156,9 +114,7 @@ ul #menu-entry #open-note{
         padding-bottom: 5px;
         border: solid white 1px;
         box-shadow: 0px 2px red, 0px -1px red;
-        
     }
-
     .container div nav{
         padding-top: 10px;
         text-align: center;
@@ -166,8 +122,6 @@ ul #menu-entry #open-note{
         justify-content: center;
         align-items: center;
     }
-    
-    
     .menu-p{
         padding: 0px;
         padding-top: 15px;
@@ -176,16 +130,13 @@ ul #menu-entry #open-note{
         margin-top: 0px;
         margin-bottom: 20px;
         max-width: 170px;
-        
     }
-    
     #category-name{
         font-size: 13px;
         font-weight: 400;
         text-shadow: 1px 1px rgb(102, 4, 4);
         box-sizing: border-box;
     }
-
     #menu-outer{
         width: 100%;
         margin-bottom: 10px;

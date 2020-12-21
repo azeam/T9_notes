@@ -4,27 +4,25 @@
     --dark: #181717;
     --white: #FFF;
 }
-
-textarea{
+textarea{ /* For editing note */
     width: 100%;
 }
-
-label{
+label{ /* Small labels above input fields */
     font-family:'Merriwheater', 'Lato', 'Langar';
     text-decoration: underline rgb(68, 68, 68);
     letter-spacing: 0,47em;
     margin-top: 20px;
     margin-left: 20px;
     margin-right: 20px;
-
 }
-
-.noteform{
-    width: fit-content;
+.noteform{ /* Div surrounding note textarea */
+    width: 70%;
+    height: auto;
+    align-self: center;
+    justify-self: center;
     
 }
-
-#body, #category{
+#body, #category{ /* Id for two textfields used for edit note and category */
     font-family:'Merriwheater', 'Lato', 'Langar';
     border-radius: 5px;
     cursor: text;
@@ -33,7 +31,6 @@ label{
     border: 1px solid var(--primary);
     height: 250px;
 }
-
 #category{
     height:22px;
 }

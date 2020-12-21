@@ -1,4 +1,4 @@
-.title{
+.title{ /* App name displayed on all pages */
     margin-left: 20px;
     margin-top: 50px;
     order:0;
@@ -10,39 +10,28 @@
     text-decoration-color: black;
     text-decoration-thickness: -1%;
     color: #CA4246;
-    letter-spacing: 2px;
-  
+    letter-spacing: 2px; 
 }
-
-/* For links to sign up and login page */
-.link-text{
+.link-text{     /* For links to sign up and login page */
     margin-top: 40px;
     line-height: 2;
     text-align: center;
 }
-
 .links{
     text-decoration: none;
     color: blue;
 }
-  
-  /* visited link */
 .links:visited {
     color: lightblue;
 }
-  
-  /* mouse over link */
 .links:hover {
     color: purple;
 }
-  
-  /* selected link */
 .links:active {
     color: red;
 }
 
 @media screen and (max-width: 320px) {
-    /* Styles go here */
     .title {
         margin-left: 20px;
         margin-right: 0px;

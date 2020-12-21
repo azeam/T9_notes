@@ -1,34 +1,36 @@
-
-div label{
+div label{ /* for labels associated with input fields */
     font-family:'Merriwheater', 'Lato', 'Langar';
     font-weight: 550;
 } 
-
-input{
+input{ /* used on login and signup page for user information */
     font-family:'Merriwheater', 'Lato', 'Langar';
     border-radius: 5px;
     cursor: pointer;
     background-color: rgba(238, 238, 238, 0.9);
     color: var(--dark);
     border: 1px solid var(--primary);
-    width: 250px;
+    width: 70%;
     margin-bottom: 15px;
     cursor: text;
 }
-
-form{
+form{ /* container for input elements */
     width: 100%;
     text-align: center;
 }
 
-@media screen and (max-width: 350px) {
-    /* Styles go here */
+@media screen and (max-width: 370px) {
     input {
         margin-left: 0px;
         margin-right: 0px;
-        width: 100%;
+        width: 95%;
     }
     form{
         width: 90%;
     }
+}
+
+@media screen and (max-width: 480px) { 
+    /* input{
+        width: 95%;
+    } */
 }
