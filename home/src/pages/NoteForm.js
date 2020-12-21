@@ -63,6 +63,8 @@ class NoteForm extends Component {
 		});
 	};
 
+	// emptys the textarea and category-area
+	// sets the state for new note
 	newNote() {
 		this.setState({
 			title: "",
