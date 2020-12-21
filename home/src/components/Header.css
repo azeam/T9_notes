@@ -1,12 +1,7 @@
-
-
-
-.header1{
+.header1{ /* Header for each page "New Note", "Login", "Signup" */
     font-size: 36px;
     font-weight: 600;
-    margin: auto;
     margin-bottom: 20px;
-    margin-left: 40px;
     letter-spacing: 2px;
     justify-self: center;
     align-self: center;
@@ -18,5 +13,11 @@
     .header1 {
         margin-left: 20px;
         margin-right: 20px;
+    }
+}
+@media screen and (min-width: 350px) {
+    .header1 {
+        margin-left: 0px;
+        margin-right: 0px;
     }
 }

@@ -59,8 +59,8 @@ class Menu extends Component{
     
     return (
       <StyledMenu open={this.props.open} aria-hidden={!isHidden} {...this.props}>
-      <div id="menu-btn-back"> 
-        <div id="menu-btn-foreground">
+      <div id="newNote-btn-back"> 
+        <div id="newNote-btn-foreground">
           <CatBtn className="btn" id="new-note-btn" label="New Note" onClick={() => { this.props.newNote(); this.props.setOpen(false); }}></CatBtn>
         </div>
       </div> 
