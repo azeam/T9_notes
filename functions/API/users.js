@@ -54,7 +54,7 @@ exports.signUpUser = (request, response) => {
         .then((doc) => {
             if (doc.exists) {
                 keepOn = false; // stop the thens on error to prevent Unhandled Promise, probably not the "correct" way to handle this...
-                return response.status(400).json({ message: "This username is already taken" });
+                return response.status(400).json({ error: "This username is already taken" });
             } else {
                 return firebase
                         .auth()

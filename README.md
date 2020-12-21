@@ -2,8 +2,13 @@
 
 Final project in the class JavaScript EVXJUH20 (Javautvecklare, EC Utbildning Växjö 2020)
 
-## Set up test env
+## Set up dev env
+[Install NodeJS and npm](https://nodejs.org/en/download/package-manager/) 
 
-For Firebase run `npm install` from functions folder  
-Run `firebase serve` from functions folder to start a "local firebase" (will run at port 5000)  
-Run `npm install` and `npm start` from home folder to start local server, navigate to http://localhost:3000/signup to test signup api
+### API:  
+Running the API locally (easier for testing during development) will require additional files containing the API key and config  
+Run `npm install` from the functions folder  
+Run `firebase serve` from the functions folder to start a "local firebase" (will run at port 5000)  
+
+### Client:  
+Run `npm install` and `npm start` from the home folder to start local Node server, navigate to http://localhost:3000/
