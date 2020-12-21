@@ -7,7 +7,7 @@ import Moment from 'react-moment';
 import './BurgMenu.css';
 import './Fonts.css';
 
-
+// class Menu is the Sidebar menu
 class Menu extends Component{
   constructor(props){
     super(props);
@@ -16,6 +16,7 @@ class Menu extends Component{
     }
   }
   
+  // filters the array of categories
   filterById(id){
     var result = this.props.notes.filter(cat => cat.category === id);
     this.setState({
@@ -23,6 +24,7 @@ class Menu extends Component{
     });
   }
 
+  // shows the notes that is under the pressed category
   renderCatButtons(data, filteredCategory)
   {
     if(filteredCategory === undefined)

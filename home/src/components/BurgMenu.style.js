@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+//style for the BurgMenu
 export const StyledMenu = styled.nav`
   display: flex;
   flex-direction: column;

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+// sets the style of the button that opens BurgMenu "Sidebar"
 export const StyledBurger = styled.button`
   position: relative;
   top: 5%;

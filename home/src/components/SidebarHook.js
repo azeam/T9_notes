@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+// method to close the sidebar/burgermenu when user pressed elsewhere
 export const useOnClickOutside = (ref, handler) => {
   useEffect(() => {
     const listener = event => {
